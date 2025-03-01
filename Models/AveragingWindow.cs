@@ -34,29 +34,37 @@ public class AveragingWindow
     {
         if (rowData == null)
             return new (0, 0, 0, 255);
+
         int red = 0;
         int green = 0;
         int blue = 0;
         int alpha = 0;
-        
-        for (int col = StartingX - Reach; col <= Math.Min(rowData.Length - 1, StartingX + Reach); col++)
-            if (col < 0 || col > rowData.Length)
-                alpha += 255;
-            else
-            {
-                Rgba32 pixel = rowData[col];
-                red += pixel.R;
-                green += pixel.G;
-                blue += pixel.B;
-                alpha += pixel.A;
-            }
+        int processed = 0;
 
-        red /= Dimension;
-        green /= Dimension;
-        blue /= Dimension;
-        alpha /= Dimension;
+        for (int col = StartingX - Reach; col <= Math.Min(rowData.Length - 1, StartingX + Reach); col++)
+        {
+            // Skip invalid pixels
+            if (col < 0 || col >= rowData.Length)
+                continue;
+
+            Rgba32 pixel = rowData[col];
+            red += pixel.R;
+            green += pixel.G;
+            blue += pixel.B;
+            alpha += pixel.A;
+            processed++;
+        }
         
-        return new(red, green, blue, alpha);
+        // Avoid division by zero
+        if (processed == 0)
+            return new (0, 0, 0, 255);
+        
+        red /= processed;
+        green /= processed;
+        blue /= processed;
+        alpha /= processed;
+
+        return new (red, green, blue, alpha);
     }
 
     public void ShiftUp(Rgba32[] row = null)

@@ -35,23 +35,21 @@ public class Art
         Image<Rgba32> original = Image.Load<Rgba32>(Location.OriginalPath);
         Image<Rgba32> final = original
             .ScaleToMaxDimension(out Image<Rgba32> scaled)
-            .Blur(5, out Image<Rgba32> blurred)
-            .CropToSquare(out Image<Rgba32> cropped)
-            .Dim(50, out Image<Rgba32> dimmed)
-            .Spotify(10, out Image<Rgba32> spotted)
-            ?.Superimpose(original, out Image<Rgba32> superimposed)
+            // .Blur(5, out Image<Rgba32> blurred)
+            // .CropToSquare(out Image<Rgba32> cropped)
+            // .Dim(50, out Image<Rgba32> dimmed)
+            // .Spotify(10, out Image<Rgba32> spotted)
+            // ?.Superimpose(original, out Image<Rgba32> superimposed)
             ?? original;
 
         Log.Info("Big blur (original)", out int blurId);
-        scaled.Blur(10, out Image<Rgba32> blur1);
+        scaled.Blur(20, out Image<Rgba32> blur1);
         Log.Info("Big blur (new)", out int newBlurId);
-        scaled.NewBlur(10, out Image<Rgba32> blur2);
         Log.Info("Blurs done", out int blursDone);
         Log.PrintTimeBetween("Blur 1 duration: ", blurId, newBlurId);
         Log.PrintTimeBetween("Blur 2 duration: ", newBlurId, blursDone);
         
         blur1.Save(PrefixSavePath("1-blurOriginal"), _encoder);
-        blur2.Save(PrefixSavePath("2-blurNew"), _encoder);
         
         //
         // scaled.Save(PrefixSavePath("1-scaled"), _encoder);

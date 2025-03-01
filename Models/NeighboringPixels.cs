@@ -1,4 +1,3 @@
-using System.Text;
 using SixLabors.ImageSharp.PixelFormats;
 
 namespace Maynard.AlbumArt.Models;
@@ -62,33 +61,4 @@ public class NeighboringPixels
         B = (byte)(int)Data.Average(x => x.B),
         A = (byte)(int)Data.Average(x => x.A)
     };
-
-    public override string ToString()
-    {
-        StringBuilder sb = new();
-        int columns = (int)Math.Sqrt(Data.Length);
-        for (int i = 0; i < Data.Length; i++)
-        {
-            if (i % columns == 0 && i > 0)
-                sb.Append(Environment.NewLine);
-            if (Data[i] == default)
-            {
-                sb.Append(',');
-                continue;
-            }
-            
-            int r = Data[i].R;
-            int g = Data[i].G;
-            int b = Data[i].B;
-
-            sb.Append
-            (
-                r > g && r > b ? 'r'
-                : g > r && g > b ? 'g'
-                : b > r && b > g ? 'b'
-                : '*'
-            );
-        }
-        return sb.ToString();
-    }
 }
