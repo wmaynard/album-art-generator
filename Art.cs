@@ -1,3 +1,4 @@
+using Maynard.AlbumArt.Utilities;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.PixelFormats;

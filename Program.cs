@@ -1,19 +1,20 @@
 ﻿using Maynard.AlbumArt;
+using Maynard.AlbumArt.Utilities;
 
 try
 {
     string directory = Directory.GetCurrentDirectory();
     foreach (Art art in Art.Scan(directory))
     {
-        Console.WriteLine($"Processing {art.Location.Filename}...");
+        Log.Info($"Processing {art.Location.Filename}...");
         if (art.Location.Filename != "sonic3")
             continue;
         art.GenerateBackground();
     }
 
-    Console.WriteLine("Done!");
+    Log.Info("Done!");
 }
 catch (Exception e)
 { 
-    Console.WriteLine(e.Message);
+    Log.Error(e.Message);
 }

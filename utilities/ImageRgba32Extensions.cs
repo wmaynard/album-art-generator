@@ -2,7 +2,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 
-namespace Maynard.AlbumArt;
+namespace Maynard.AlbumArt.Utilities;
 
 public static class ImageRgba32Extensions
 {
