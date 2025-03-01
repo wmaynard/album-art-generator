@@ -1,7 +1,7 @@
 using System.Text;
 using SixLabors.ImageSharp.PixelFormats;
 
-namespace Maynard.AlbumArt;
+namespace Maynard.AlbumArt.Models;
 
 public class NeighboringPixels
 {

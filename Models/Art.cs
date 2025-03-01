@@ -4,7 +4,7 @@ using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.PixelFormats;
 using Vector2 = System.Numerics.Vector2;
 
-namespace Maynard.AlbumArt;
+namespace Maynard.AlbumArt.Models;
 
 public struct Location(string path)
 {

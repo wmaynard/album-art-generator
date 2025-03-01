@@ -1,4 +1,5 @@
 ﻿using Maynard.AlbumArt;
+using Maynard.AlbumArt.Models;
 using Maynard.AlbumArt.Utilities;
 
 try
