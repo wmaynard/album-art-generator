@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "image-manipulation", "image-manipulation\image-manipulation.csproj", "{468E66DF-2EDB-4F7B-A740-5E8A778ED65D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "manipulator-client", "manipulator-client\manipulator-client.csproj", "{569500DC-AAC4-4F9A-B484-0AD892096462}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{468E66DF-2EDB-4F7B-A740-5E8A778ED65D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{468E66DF-2EDB-4F7B-A740-5E8A778ED65D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{468E66DF-2EDB-4F7B-A740-5E8A778ED65D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{569500DC-AAC4-4F9A-B484-0AD892096462}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{569500DC-AAC4-4F9A-B484-0AD892096462}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{569500DC-AAC4-4F9A-B484-0AD892096462}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{569500DC-AAC4-4F9A-B484-0AD892096462}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
