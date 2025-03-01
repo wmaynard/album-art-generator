@@ -36,11 +36,11 @@ public class Art
             // ?.Superimpose(original, out Image<Rgba32> superimposed)
             ?? original;
 
-        scaled.Blur(20, out Image<Rgba32> blur1);
+        scaled.Blur(5, out Image<Rgba32> blur1);
         // scaled.Blur(20);
         
         blur1.Save(PrefixSavePath("1-blur"), _encoder);
-        scaled.Save(PrefixSavePath("2-blurOriginal"), _encoder);
+        // scaled.Save(PrefixSavePath("2-blurOriginal"), _encoder);
         
         //
         // scaled.Save(PrefixSavePath("1-scaled"), _encoder);

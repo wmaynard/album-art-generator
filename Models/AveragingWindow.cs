@@ -29,7 +29,7 @@ public class AveragingWindow
         while (index < Data.Length)
             Data[index++] = new (0, 0, 0, 255);
     }
-
+    
     private Rgba32 GetAveragePixel(Rgba32[] rowData)
     {
         if (rowData == null)
@@ -43,9 +43,8 @@ public class AveragingWindow
 
         for (int col = StartingX - Reach; col <= Math.Min(rowData.Length - 1, StartingX + Reach); col++)
         {
-            // Skip invalid pixels
-            if (col < 0 || col >= rowData.Length)
-                continue;
+            if (col < 0 || col >= rowData.Length)  // Fixing out-of-bounds check
+                continue;  // Skip invalid pixels instead of adding 255 to alpha
 
             Rgba32 pixel = rowData[col];
             red += pixel.R;
@@ -54,17 +53,17 @@ public class AveragingWindow
             alpha += pixel.A;
             processed++;
         }
-        
+
         // Avoid division by zero
         if (processed == 0)
-            return new (0, 0, 0, 255);
-        
+            return new(0, 0, 0, 255);
+
         red /= processed;
         green /= processed;
         blue /= processed;
         alpha /= processed;
-
-        return new (red, green, blue, alpha);
+        
+        return new ((byte)red, (byte)green, (byte)blue, (byte)alpha);
     }
 
     public void ShiftUp(Rgba32[] row = null)
