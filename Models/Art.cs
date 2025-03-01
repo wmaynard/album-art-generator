@@ -1,3 +1,4 @@
+using Maynard.AlbumArt.Extensions;
 using Maynard.AlbumArt.Utilities;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;
@@ -6,13 +7,6 @@ using Vector2 = System.Numerics.Vector2;
 
 namespace Maynard.AlbumArt.Models;
 
-public struct Location(string path)
-{
-    public string Directory = Path.GetDirectoryName(path);
-    public string Filename = Path.GetFileNameWithoutExtension(path);
-    public string Extension = Path.GetExtension(path);
-    public string OriginalPath = path;
-}
 public class Art
 {
     public static PngEncoder _encoder = new();
@@ -42,14 +36,11 @@ public class Art
             // ?.Superimpose(original, out Image<Rgba32> superimposed)
             ?? original;
 
-        Log.Info("Big blur (original)", out int blurId);
         scaled.Blur(20, out Image<Rgba32> blur1);
-        Log.Info("Big blur (new)", out int newBlurId);
-        Log.Info("Blurs done", out int blursDone);
-        Log.PrintTimeBetween("Blur 1 duration: ", blurId, newBlurId);
-        Log.PrintTimeBetween("Blur 2 duration: ", newBlurId, blursDone);
+        // scaled.Blur(20);
         
-        blur1.Save(PrefixSavePath("1-blurOriginal"), _encoder);
+        blur1.Save(PrefixSavePath("1-blur"), _encoder);
+        scaled.Save(PrefixSavePath("2-blurOriginal"), _encoder);
         
         //
         // scaled.Save(PrefixSavePath("1-scaled"), _encoder);
