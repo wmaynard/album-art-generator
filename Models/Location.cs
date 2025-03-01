@@ -1,4 +1,4 @@
-namespace Maynard.AlbumArt.Models;
+namespace Maynard.Imaging.Models;
 
 public struct Location(string path)
 {

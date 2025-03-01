@@ -1,4 +1,4 @@
-namespace Maynard.AlbumArt.Utilities;
+namespace Maynard.Imaging.Utilities;
 
 public static class TimestampMs
 {

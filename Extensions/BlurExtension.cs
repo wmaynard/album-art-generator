@@ -1,8 +1,8 @@
-using Maynard.AlbumArt.Models;
+using Maynard.Imaging.Models;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
-namespace Maynard.AlbumArt.Extensions;
+namespace Maynard.Imaging.Extensions;
 
 public static class BlurExtension
 {

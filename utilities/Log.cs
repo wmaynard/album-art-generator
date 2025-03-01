@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace Maynard.AlbumArt.Utilities;
+namespace Maynard.Imaging.Utilities;
 
 public static class Log
 {

@@ -1,8 +1,8 @@
-using Maynard.AlbumArt.Utilities;
+using Maynard.Imaging.Utilities;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
-namespace Maynard.AlbumArt.Extensions;
+namespace Maynard.Imaging.Extensions;
 
 public static class CropToSquareExtension
 {

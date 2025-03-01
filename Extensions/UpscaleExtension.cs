@@ -1,7 +1,7 @@
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
-namespace Maynard.AlbumArt.Extensions;
+namespace Maynard.Imaging.Extensions;
 
 public static class UpscaleExtension
 {

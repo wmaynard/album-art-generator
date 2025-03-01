@@ -1,11 +1,11 @@
-using Maynard.AlbumArt.Extensions;
-using Maynard.AlbumArt.Utilities;
+using Maynard.Imaging.Extensions;
+using Maynard.Imaging.Utilities;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.PixelFormats;
 using Vector2 = System.Numerics.Vector2;
 
-namespace Maynard.AlbumArt.Models;
+namespace Maynard.Imaging.Models;
 
 public class Art
 {
