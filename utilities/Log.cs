@@ -108,13 +108,13 @@ public static class Log
 
     public static int Verbose(string message) => Write(Severity.Verbose, message);
     public static int Info(string message) => Write(Severity.Info, message);
-    public static int Warning(string message) => Write(Severity.Warn, message);
+    public static int Warn(string message) => Write(Severity.Warn, message);
     public static int Error(string message) => Write(Severity.Error, message);
     public static int Critical(string message) => Write(Severity.Critical, message);
     
     public static int Verbose(string message, out int eventId) => eventId = Write(Severity.Verbose, message);
     public static int Info(string message, out int eventId) => eventId = Write(Severity.Info, message);
-    public static int Warning(string message, out int eventId) => eventId = Write(Severity.Warn, message);
+    public static int Warn(string message, out int eventId) => eventId = Write(Severity.Warn, message);
     public static int Error(string message, out int eventId) => eventId = Write(Severity.Error, message);
     public static int Critical(string message, out int eventId) => eventId = Write(Severity.Critical, message);
 
@@ -122,7 +122,7 @@ public static class Log
     {
         if (_timestamps.TryGetValue(eventId, out long timestamp))
             return TimestampMs.Now - timestamp;
-        Warning($"Unable to find timestamp for one or more event IDs ({eventId})");
+        Warn($"Unable to find timestamp for one or more event IDs ({eventId})");
         return -1;
     }
 
@@ -132,7 +132,7 @@ public static class Log
             & _timestamps.TryGetValue(secondEventId, out long second);
         if (success)
             return Math.Abs(first - second);
-        Warning($"Unable to find timestamp for one or more event IDs ({firstEventId}, {secondEventId})");
+        Warn($"Unable to find timestamp for one or more event IDs ({firstEventId}, {secondEventId})");
         return -1;
     }
 

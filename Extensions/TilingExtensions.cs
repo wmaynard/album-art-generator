@@ -1,3 +1,4 @@
+using Maynard.AlbumArt.Utilities;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
@@ -69,9 +70,7 @@ public static class TilingExtensions
             Image<Rgba32> bar = new(width, height);
             data = new();
             for (int y = 0; y < height; y++)
-            {
                 foreach (Image<Rgba32> tile in row)
-                {
                     tile.ProcessPixelRows(image =>
                     {
                         foreach (Rgba32 pixel in image.GetRowSpan(y))
@@ -80,8 +79,6 @@ public static class TilingExtensions
                             finalData.Enqueue(pixel);
                         }
                     });
-                }
-            }
             bar.Load(data);
         }
         Image<Rgba32> output = new(width, totalHeight);
@@ -89,8 +86,6 @@ public static class TilingExtensions
 
         return output;
     }
-    
-
 
     /// <summary>
     /// Splits an image into tiles, performs a specific action on each as a separate image, then stitches the tiles
@@ -99,12 +94,15 @@ public static class TilingExtensions
     /// <param name="self">The original image.</param>
     /// <param name="tileSize">The size of each tile in pixels.  Must be greater than 1 to have any effect.</param>
     /// <param name="action">The processing to take place on each tile.</param>
-    /// <param name="processed">The processed image.</param>
     /// <returns>The processed image for chaining.</returns>
-    internal static Image<Rgba32> ProcessTiles(this Image<Rgba32> self, int tileSize, Func<Image<Rgba32>, Image<Rgba32>> action, out Image<Rgba32> processed)
+    internal static Image<Rgba32> ProcessTiles(this Image<Rgba32> self, int tileSize, Func<Image<Rgba32>, Image<Rgba32>> action)
     {
         if (tileSize <= 1)
-            return processed = self.Clone();
+        {
+            Log.Warn("Tile size is less than or equal to 1; values of 1 pixel are not allowed.");
+            return self;
+        }
+
         Queue<List<Image<Rgba32>>> rows = self.SliceAndDice(tileSize);
 
         for (int i = 0; i < rows.Count; i++)
@@ -115,6 +113,18 @@ public static class TilingExtensions
             rows.Enqueue(row);
         }
 
-        return processed = Stitch(rows);
+        return self = Stitch(rows);
     }
+    
+    /// <summary>
+    /// Copies an image, splits it into tiles, performs a specific action on each as a separate image, then stitches the
+    /// tiles back together into a composite image.
+    /// </summary>
+    /// <param name="self">The original image.</param>
+    /// <param name="tileSize">The size of each tile in pixels.  Must be greater than 1 to have any effect.</param>
+    /// <param name="action">The processing to take place on each tile.</param>
+    /// <param name="processed">The processed image.</param>
+    /// <returns>The processed copy of an image for chaining.</returns>
+    internal static Image<Rgba32> ProcessTiles(this Image<Rgba32> self, int tileSize, Func<Image<Rgba32>, Image<Rgba32>> action, out Image<Rgba32> processed)
+        => processed = self.Clone().ProcessTiles(tileSize, action);
 }

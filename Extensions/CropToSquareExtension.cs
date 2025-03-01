@@ -1,3 +1,4 @@
+using Maynard.AlbumArt.Utilities;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
@@ -6,20 +7,20 @@ namespace Maynard.AlbumArt.Extensions;
 public static class CropToSquareExtension
 {
     /// <summary>
-    /// Crops an image to a square area.  The resulting image will trim from two sides of the original image, leaving a
-    /// window focused on the central pixel.
+    /// Crops an image to a square area.  The resulting image will trim from two sides of the original image,
+    /// leaving a window focused on the central pixel.
     /// </summary>
     /// <param name="self">The original image.</param>
-    /// <param name="cropped">The cropped copy of the original image.</param>
-    /// <returns>The cropped copy of the original image for chaining.</returns>
-    public static Image<Rgba32> CropToSquare(this Image<Rgba32> self, out Image<Rgba32> cropped)
+    /// <returns>The cropped image for chaining.</returns>
+    public static Image<Rgba32> CropToSquare(this Image<Rgba32> self)
     {
-        cropped = self.Width == self.Height ? self.Clone() : null;
-        if (cropped != null)
-            return cropped;
+        if (self.Width == self.Height)
+        {
+            Log.Warn("Unable to crop to square; image is already a square.");
+            return self;
+        }
 
         int dimension = Math.Min(self.Width, self.Height);
-        cropped = new(dimension, dimension);
 
         Queue<Rgba32> data = new();
         self.ProcessPixelRows(image =>
@@ -41,7 +42,7 @@ public static class CropToSquareExtension
             }
         });
         
-        cropped.ProcessPixelRows(image =>
+        self.ProcessPixelRows(image =>
         {
             for (int y = 0; y < image.Height; y++)
             {
@@ -50,6 +51,16 @@ public static class CropToSquareExtension
                     row[x] = data.Dequeue();
             }
         });
-        return cropped;
+        return self;
     }
+
+    /// <summary>
+    /// Creates a copy of an image, then crops it to a square area.  The resulting image will trim from two sides of the
+    /// original image, leaving a window focused on the central pixel.
+    /// </summary>
+    /// <param name="self">The original image.</param>
+    /// <param name="cropped">The cropped copy of the original image.</param>
+    /// <returns>The cropped copy of the original image for chaining.</returns>
+    public static Image<Rgba32> CropToSquare(this Image<Rgba32> self, out Image<Rgba32> cropped)
+        => cropped = self.Clone().CropToSquare();
 }

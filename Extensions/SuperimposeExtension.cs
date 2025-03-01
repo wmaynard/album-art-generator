@@ -8,21 +8,23 @@ public static class SuperimposeExtension
 {
     /// <summary>
     /// Layers an image on top of the current one.  The image will be centered vertically or horizontally.
-    /// TODO: Test what happens when superimpose is used with an image larger than the source.
     /// </summary>
     /// <param name="self">The original image.</param>
     /// <param name="other">The image to be superimposed.</param>
-    /// <param name="superimposed">The combined image.</param>
     /// <returns>The combined image for chaining.</returns>
-    public static Image<Rgba32> Superimpose(this Image<Rgba32> self, Image<Rgba32> other, out Image<Rgba32> superimposed)
+    public static Image<Rgba32> Superimpose(this Image<Rgba32> self, Image<Rgba32> other)
     {
-        bool sameDimensions = other.Width == self.Width && other.Height == self.Height;
-        superimposed = (sameDimensions ? other : self).Clone();
-        if (sameDimensions)
-            return superimposed;
+        if (other.Width > self.Width || other.Height > self.Height)
+            throw new("Superimpose requires the background image to be larger in both dimensions to work.");
+        if (other.Width == self.Width && other.Height == self.Height)
+        {
+            Log.Warn("Superimposed image has the same dimensions as the background image.  The background image is lost.");
+            self = other.Clone();
+            return self;
+        }
 
         Queue<Rgba32> data = other.Enqueue();
-        superimposed.ProcessPixelRows(image =>
+        self.ProcessPixelRows(image =>
         {
             int startX = Math.Abs(self.Width - other.Width) / 2;
             int startY = Math.Abs(self.Height - other.Height) / 2;
@@ -40,6 +42,16 @@ public static class SuperimposeExtension
             }
         });
 
-        return superimposed;
+        return self;
     }
+    
+    /// <summary>
+    /// Layers an image on top of the current one.  The image will be centered vertically or horizontally.
+    /// </summary>
+    /// <param name="self">The original image.</param>
+    /// <param name="other">The image to be superimposed.</param>
+    /// <param name="superimposed">The combined image.</param>
+    /// <returns>The combined image for chaining.</returns>
+    public static Image<Rgba32> Superimpose(this Image<Rgba32> self, Image<Rgba32> other, out Image<Rgba32> superimposed)
+        => superimposed = self.Clone().Superimpose(other);
 }
