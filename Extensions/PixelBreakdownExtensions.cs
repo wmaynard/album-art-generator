@@ -1,5 +1,6 @@
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 
 namespace Maynard.AlbumArt.Extensions;
 
@@ -44,3 +45,4 @@ public static class PixelBreakdownExtensions
         });
     }
 }
+

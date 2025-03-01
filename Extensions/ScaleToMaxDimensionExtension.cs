@@ -14,7 +14,7 @@ public static class ScaleToMaxDimensionExtension
     /// <returns>The scaled image for chaining.</returns>
     public static Image<Rgba32> ScaleToMaxDimension(this Image<Rgba32> self)
     {
-        if (self.Width == self.Height)
+        if (self.IsSquare())
             return self;
         
         float scale = (float)Math.Max(self.Width, self.Height) / Math.Min(self.Width, self.Height);
@@ -34,3 +34,4 @@ public static class ScaleToMaxDimensionExtension
     public static Image<Rgba32> ScaleToMaxDimension(this Image<Rgba32> self, out Image<Rgba32> scaled)
         => scaled = self.Clone().ScaleToMaxDimension();
 }
+

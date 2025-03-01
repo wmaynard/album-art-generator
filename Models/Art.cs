@@ -12,13 +12,6 @@ public class Art
     public static PngEncoder _encoder = new();
     
     public Location Location { get; set; }
-    private string ScaledPath => $"{Location.Directory}/scaled-{Location.Filename}.png";
-    private string BackgroundPath => $"{Location.Directory}/background-{Location.Filename}.png";
-    private string CroppedPath => $"{Location.Directory}/cropped-{Location.Filename}.png";
-    private string DimmedPath => $"{Location.Directory}/dimmed-{Location.Filename}.png";
-    public string TestPath => $"{Location.Directory}/test-{Location.Filename}.png";
-    public string TilePath => $"{Location.Directory}/test-{Location.Filename}.png";
-    public Vector2 OriginalSize { get; set; }
 
     private Art(string path) => Location = new(path);
 

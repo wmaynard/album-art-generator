@@ -14,7 +14,7 @@ public static class CropToSquareExtension
     /// <returns>The cropped image for chaining.</returns>
     public static Image<Rgba32> CropToSquare(this Image<Rgba32> self)
     {
-        if (self.Width == self.Height)
+        if (self.IsSquare())
         {
             Log.Warn("Unable to crop to square; image is already a square.");
             return self;
