@@ -6,9 +6,10 @@ public static class Log
 {
     private const int PADDING_TIMESTAMP = 12;
     private const int MAX_MESSAGE_WIDTH = 80;
+    private const int PADDING_EVENT_ID = 10;
     private static readonly int PADDING_SEVERITY = Enum.GetNames<Severity>().Max(s => s.Length);
     private static readonly int PADDING_TO_MESSAGE = PADDING_TIMESTAMP + PADDING_SEVERITY + 7;
-    private static readonly int END_OF_LINE = PADDING_TO_MESSAGE + MAX_MESSAGE_WIDTH;
+    private static readonly int END_OF_LINE = PADDING_TO_MESSAGE + MAX_MESSAGE_WIDTH + PADDING_EVENT_ID;
     private static readonly bool INITIALIZED = Initialize();
     private enum Severity { Verbose, Info, Warn, Error, Critical }
 
@@ -26,10 +27,10 @@ public static class Log
     {
         if (INITIALIZED)
             return true;
-        // Console.SetOut(new FilteringTextWriter(Console.Out));
+        
         Console.SetError(new FilteringTextWriter(Console.Error));
         Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.WriteLine($"{"Timestamp",-PADDING_TIMESTAMP} | {"Severity".PadRight(PADDING_SEVERITY)} | Message");
+        Console.WriteLine($"{"Timestamp",-PADDING_TIMESTAMP} | Event ID   | {"Severity".PadRight(PADDING_SEVERITY)} | Message");
         Console.WriteLine("-----------------------------------------------------------------------------------------------------------------------");
         return true;
     }
@@ -47,9 +48,11 @@ public static class Log
         }
         while (_stack?.Any() ?? false)
             _stack.Pop()();
-        
+
+        int eventId = _counter++;
         StringBuilder sb = new();
-        sb.Append($"{DateTime.Now:HH:mm:ss.fff} | {severity.ToString().ToUpper().PadRight(PADDING_SEVERITY)} | ");
+        
+        sb.Append($"{DateTime.Now:HH:mm:ss.fff} | {eventId.ToString().PadLeft(PADDING_EVENT_ID)} | {severity.ToString().ToUpper().PadRight(PADDING_SEVERITY)} | ");
         if (sb.Length + message.Length < END_OF_LINE)
             sb.Append(message);
         else
@@ -99,8 +102,8 @@ public static class Log
             _ => ConsoleColor.Black
         };
         Console.WriteLine(sb.ToString());
-        _timestamps[_counter] = TimestampMs.Now;
-        return _counter++;
+        _timestamps[eventId] = TimestampMs.Now;
+        return eventId;
     }
 
     public static int Verbose(string message) => Write(Severity.Verbose, message);
@@ -133,11 +136,15 @@ public static class Log
         return -1;
     }
 
-    public static void PrintTimeBetween(int firstEventId, int secondEventId)
+    public static void PrintTimeBetween(string message, int firstEventId, int secondEventId)
     {
         long time = TimeBetween(firstEventId, secondEventId);
         if (time == -1)
             return;
-        Info($"Time between {firstEventId} and {secondEventId}: {time:N0}ms");
+        Info(message == null
+            ? $"Time between {firstEventId} and {secondEventId}: {time:N0}ms"
+            : $"{message} {time:N0}ms ({firstEventId}, {secondEventId})"
+        );
     }
+    public static void PrintTimeBetween(int firstEventId, int secondEventId) => PrintTimeBetween(null, firstEventId, secondEventId);
 }

@@ -41,13 +41,25 @@ public class Art
             .Spotify(10, out Image<Rgba32> spotted)
             ?.Superimpose(original, out Image<Rgba32> superimposed)
             ?? original;
+
+        Log.Info("Big blur (original)", out int blurId);
+        scaled.Blur(10, out Image<Rgba32> blur1);
+        Log.Info("Big blur (new)", out int newBlurId);
+        scaled.NewBlur(10, out Image<Rgba32> blur2);
+        Log.Info("Blurs done", out int blursDone);
+        Log.PrintTimeBetween("Blur 1 duration: ", blurId, newBlurId);
+        Log.PrintTimeBetween("Blur 2 duration: ", newBlurId, blursDone);
         
-        scaled.Save(PrefixSavePath("1-scaled"), _encoder);
-        blurred.Save(PrefixSavePath("2-blurred"), _encoder);
-        cropped.Save(PrefixSavePath("3-cropped"), _encoder);
-        dimmed.Save(PrefixSavePath("4-dimmed"), _encoder);
-        spotted.Save(PrefixSavePath("5-spotted"), _encoder);
-        final.Save(PrefixSavePath("6-background"), _encoder);
+        blur1.Save(PrefixSavePath("1-blurOriginal"), _encoder);
+        blur2.Save(PrefixSavePath("2-blurNew"), _encoder);
+        
+        //
+        // scaled.Save(PrefixSavePath("1-scaled"), _encoder);
+        // blurred.Save(PrefixSavePath("2-blurred"), _encoder);
+        // cropped.Save(PrefixSavePath("3-cropped"), _encoder);
+        // dimmed.Save(PrefixSavePath("4-dimmed"), _encoder);
+        // spotted.Save(PrefixSavePath("5-spotted"), _encoder);
+        // final.Save(PrefixSavePath("6-background"), _encoder);
     }
 
 
