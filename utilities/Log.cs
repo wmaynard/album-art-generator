@@ -9,8 +9,11 @@ public static class Log
     private static readonly int PADDING_SEVERITY = Enum.GetNames<Severity>().Max(s => s.Length);
     private static readonly int PADDING_TO_MESSAGE = PADDING_TIMESTAMP + PADDING_SEVERITY + 7;
     private static readonly int END_OF_LINE = PADDING_TO_MESSAGE + MAX_MESSAGE_WIDTH;
-    private static readonly bool _initialized = Initialize();
-    private enum Severity { VERBOSE, INFO, WARN, ERROR, CRITICAL }
+    private static readonly bool INITIALIZED = Initialize();
+    private enum Severity { Verbose, Info, Warn, Error, Critical }
+
+    private static Dictionary<int, long> _timestamps = new();
+    private static int _counter;
 
     private class FilteringTextWriter(TextWriter original) : TextWriter
     {
@@ -21,7 +24,7 @@ public static class Log
 
     private static bool Initialize()
     {
-        if (_initialized)
+        if (INITIALIZED)
             return true;
         // Console.SetOut(new FilteringTextWriter(Console.Out));
         Console.SetError(new FilteringTextWriter(Console.Error));
@@ -34,19 +37,19 @@ public static class Log
     private static Stack<Action> _stack;
     // End goal:
     // HH:MM:SS.sss | TYPE | Filename:Line | Message
-    private static void Write(Severity severity, string message)
+    private static int Write(Severity severity, string message)
     {
-        if (!_initialized)
+        if (!INITIALIZED)
         {
             _stack ??= new();
             _stack.Push(() => Write(severity, message));
-            return;
+            return -1;
         }
         while (_stack?.Any() ?? false)
             _stack.Pop()();
-            
+        
         StringBuilder sb = new();
-        sb.Append($"{DateTime.Now:HH:mm:ss.fff} | {severity.ToString().PadRight(PADDING_SEVERITY)} | ");
+        sb.Append($"{DateTime.Now:HH:mm:ss.fff} | {severity.ToString().ToUpper().PadRight(PADDING_SEVERITY)} | ");
         if (sb.Length + message.Length < END_OF_LINE)
             sb.Append(message);
         else
@@ -83,25 +86,58 @@ public static class Log
         
         Console.ForegroundColor = severity switch
         {
-            Severity.VERBOSE => ConsoleColor.Gray,
-            Severity.INFO => ConsoleColor.White,
-            Severity.WARN => ConsoleColor.Yellow,
-            Severity.ERROR => ConsoleColor.Red,
-            Severity.CRITICAL => ConsoleColor.DarkRed,
+            Severity.Verbose => ConsoleColor.Gray,
+            Severity.Info => ConsoleColor.White,
+            Severity.Warn => ConsoleColor.Yellow,
+            Severity.Error => ConsoleColor.Red,
+            Severity.Critical => ConsoleColor.DarkRed,
             _ => ConsoleColor.Gray,
         };
         Console.ForegroundColor = severity switch
         {
-            Severity.CRITICAL => ConsoleColor.Gray,
+            Severity.Critical => ConsoleColor.Gray,
             _ => ConsoleColor.Black
         };
         Console.WriteLine(sb.ToString());
+        _timestamps[_counter] = TimestampMs.Now;
+        return _counter++;
     }
 
-    public static void Verbose(string message) => Write(Severity.VERBOSE, message);
-    public static void Info(string message) => Write(Severity.INFO, message);
-    public static void Warning(string message) => Write(Severity.WARN, message);
-    public static void Error(string message) => Write(Severity.ERROR, message);
-    public static void Critical(string message) => Write(Severity.CRITICAL, message);
-}
+    public static int Verbose(string message) => Write(Severity.Verbose, message);
+    public static int Info(string message) => Write(Severity.Info, message);
+    public static int Warning(string message) => Write(Severity.Warn, message);
+    public static int Error(string message) => Write(Severity.Error, message);
+    public static int Critical(string message) => Write(Severity.Critical, message);
+    
+    public static int Verbose(string message, out int eventId) => eventId = Write(Severity.Verbose, message);
+    public static int Info(string message, out int eventId) => eventId = Write(Severity.Info, message);
+    public static int Warning(string message, out int eventId) => eventId = Write(Severity.Warn, message);
+    public static int Error(string message, out int eventId) => eventId = Write(Severity.Error, message);
+    public static int Critical(string message, out int eventId) => eventId = Write(Severity.Critical, message);
 
+    public static long TimeSince(int eventId)
+    {
+        if (_timestamps.TryGetValue(eventId, out long timestamp))
+            return TimestampMs.Now - timestamp;
+        Warning($"Unable to find timestamp for one or more event IDs ({eventId})");
+        return -1;
+    }
+
+    public static long TimeBetween(int firstEventId, int secondEventId)
+    {
+        bool success = _timestamps.TryGetValue(firstEventId, out long first)
+            & _timestamps.TryGetValue(secondEventId, out long second);
+        if (success)
+            return Math.Abs(first - second);
+        Warning($"Unable to find timestamp for one or more event IDs ({firstEventId}, {secondEventId})");
+        return -1;
+    }
+
+    public static void PrintTimeBetween(int firstEventId, int secondEventId)
+    {
+        long time = TimeBetween(firstEventId, secondEventId);
+        if (time == -1)
+            return;
+        Info($"Time between {firstEventId} and {secondEventId}: {time:N0}ms");
+    }
+}
