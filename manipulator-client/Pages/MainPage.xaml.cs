@@ -30,9 +30,15 @@ public partial class MainPage : ContentPage
         Log.Intercept(OnLogSent);
     }
 
+    private async void RefreshImagePreview()
+    {
+        // TODO: Process the image here and update the progress bar / status.
+    }
+
     public void LoadPreferences()
     {
         CurrentDirectory = Preferences.Get(PREFERENCE_CURRENT_DIRECTORY, null);
+        DirectoryLabel.Text = $"Current Directory: {CurrentDirectory}";
         int[] pickerIndexes = Preferences.Get(PREFERENCE_PICKER_INDEXES, "")
             .Split(',')
             .Select(int.Parse)
@@ -76,13 +82,6 @@ public partial class MainPage : ContentPage
         tv.ScrollRangeToVisible(range);
     }
     
-    
-    
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
-    }
-
     protected override void OnDisappearing()
     {
         Preferences.Set(PREFERENCE_PICKER_INDEXES, string.Join(',', Pickers

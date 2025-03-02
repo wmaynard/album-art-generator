@@ -21,9 +21,11 @@
             <!-- Right Panel: Image Preview -->
             <VerticalStackLayout Grid.Column="2" Padding="10">
                 <Label Text="Original Image" />
-                <Image x:Name="OriginalImage" WidthRequest="200" HeightRequest="200" />
+                <Image x:Name="OriginalImage" WidthRequest="200" HeightRequest="200" Source="samples/mandrill.jpg" />
                 <Label Text="Preview" />
                 <Image x:Name="PreviewImage" WidthRequest="200" HeightRequest="200" />
+                <ProgressBar x:Name="SampleProcessingBar" IsVisible="False"/>
+                <Label x:Name="ProcessingLabel" IsVisible="False"/>
             </VerticalStackLayout>
             
         </Grid>
