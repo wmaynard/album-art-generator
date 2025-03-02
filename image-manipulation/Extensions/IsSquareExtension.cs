@@ -3,7 +3,7 @@ using SixLabors.ImageSharp.PixelFormats;
 
 namespace Maynard.Imaging.Extensions;
 
-public static class IsSquareExtension
+internal static class IsSquareExtension
 {
     public static bool IsSquare(this Image<Rgba32> image) => image.Width == image.Height;
 }

@@ -6,11 +6,16 @@ using CommunityToolkit.Maui.Storage;
 using Foundation;
 using Maynard.ImageManipulator.Client.Controls;
 using Maynard.ImageManipulator.Client.Utilities;
+using Maynard.Imaging.Extensions;
+using Maynard.Imaging.Utilities;
 using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Layouts;
 using Microsoft.Maui.Storage;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.PixelFormats;
+using Photo = SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32>;
 
 namespace Maynard.ImageManipulator.Client.Pages;
 
@@ -32,7 +37,54 @@ public partial class MainPage : ContentPage
 
     private async void RefreshImagePreview()
     {
+        PreviewImage.Source = null;
         // TODO: Process the image here and update the progress bar / status.
+        Photo sample = Photo.Load<Rgba32>("samples/mandrill.jpg");
+
+        string[] names = ReflectionHelper.GetActionNames();
+        int[] actions = Pickers
+            .Select(picker => picker.SelectedIndex)
+            .Where(index => index > 0)
+            .ToArray();
+
+        if (!actions.Any())
+        {
+            PreviewImage.Source = OriginalImage.Source;
+            return;
+        }
+        // .ScaleToMaxDimension(out Image<Rgba32> scaled)
+        // .Blur(5, out Image<Rgba32> blurred)
+        // .CropToSquare(out Image<Rgba32> cropped)
+        // .Dim(50, out Image<Rgba32> dimmed)
+        // .Spotify(10, out Image<Rgba32> spotted)
+        // ?.Superimpose(original, out Image<Rgba32> superimposed)
+        Photo copy = sample.Clone();
+        foreach (int actionIndex in actions)
+            switch (names[actionIndex])
+            {
+                case "Dim":
+                    copy.Dim(50);
+                    break;
+                case "Crop To Square":
+                    copy.CropToSquare();
+                    break;
+                case "Resize":
+                    copy.Resize(300, 300);
+                    break;
+                case "Scale To Max Dimension":
+                    copy.ScaleToMaxDimension();
+                    break;
+                case "Spotify":
+                    copy.Spotify(10);
+                    break;
+                case "Superimpose":
+                    copy.Superimpose(sample);
+                    break;
+                case "Upscale":
+                    copy.Upscale(500);
+                    break;
+            }
+        // copy.Save("samples/mandrill-processed.jpg", new JpegEncoder());
     }
 
     public void LoadPreferences()

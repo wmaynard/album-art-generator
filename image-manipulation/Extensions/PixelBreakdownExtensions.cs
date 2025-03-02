@@ -4,7 +4,7 @@ using SixLabors.ImageSharp.Processing;
 
 namespace Maynard.Imaging.Extensions;
 
-public static class PixelBreakdownExtensions
+internal static class PixelBreakdownExtensions
 {
     /// <summary>
     /// Converts an image into a queue of individual pixels.  It's up to the consumer of this method to repack them

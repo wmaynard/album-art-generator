@@ -4,7 +4,7 @@ using SixLabors.ImageSharp.PixelFormats;
 
 namespace Maynard.Imaging.Extensions;
 
-public static class TilingExtensions
+internal static class TilingExtensions
 {
     /// <summary>
     /// Chops up an image into a collection of tiles.  This is used for special effects such as the Spotify() method.
