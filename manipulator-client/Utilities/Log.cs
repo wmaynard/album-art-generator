@@ -1,14 +1,19 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
+using Maynard.Imaging.Utilities;
 
-namespace Maynard.Imaging.Utilities;
+namespace Maynard.ImageManipulator.Client.Utilities;
 
-internal class LogEventArgs
+public class LogEventArgs
 {
     public string Message { get; set;  }
     public Log.Severity Severity { get; set; }
 }
 
-internal static class Log
+public static class Log
 {
     private const int PADDING_TIMESTAMP = 12;
     private const int MAX_MESSAGE_WIDTH = 80;
@@ -50,9 +55,9 @@ internal static class Log
         if (INITIALIZED)
             return true;
 
-        Console.SetError(new FilteringTextWriter(Console.Error));
-        Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.WriteLine(HEADERS);
+        // Console.SetError(new FilteringTextWriter(Console.Error));
+        // Console.ForegroundColor = ConsoleColor.Cyan;
+        // Console.WriteLine(HEADERS);
         return true;
     }
 
@@ -108,23 +113,23 @@ internal static class Log
                 }
         }
         
-        Console.ForegroundColor = severity switch
-        {
-            Severity.Verbose => ConsoleColor.Gray,
-            Severity.Info => ConsoleColor.White,
-            Severity.Warn => ConsoleColor.Yellow,
-            Severity.Error => ConsoleColor.Red,
-            Severity.Critical => ConsoleColor.DarkRed,
-            _ => ConsoleColor.Gray,
-        };
-        Console.ForegroundColor = severity switch
-        {
-            Severity.Critical => ConsoleColor.Gray,
-            _ => ConsoleColor.Black
-        };
-        Console.WriteLine(sb.ToString());
+        // Console.ForegroundColor = severity switch
+        // {
+        //     Severity.Verbose => ConsoleColor.Gray,
+        //     Severity.Info => ConsoleColor.White,
+        //     Severity.Warn => ConsoleColor.Yellow,
+        //     Severity.Error => ConsoleColor.Red,
+        //     Severity.Critical => ConsoleColor.DarkRed,
+        //     _ => ConsoleColor.Gray,
+        // };
+        // Console.ForegroundColor = severity switch
+        // {
+        //     Severity.Critical => ConsoleColor.Gray,
+        //     _ => ConsoleColor.Black
+        // };
+        // Console.WriteLine(sb.ToString());
         _timestamps[eventId] = TimestampMs.Now;
-        _handler?.Invoke(null, new() { Message = message, Severity = severity});
+        _handler?.Invoke(null, new() { Message = sb.ToString(), Severity = severity});
         return eventId;
     }
 
