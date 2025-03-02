@@ -18,6 +18,17 @@
   <component name="ChangeListManager">
     <list default="true" id="8c68a337-0f70-42bb-9ad7-b50a934c0b58" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Batch Image Manipulator/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Batch Image Manipulator/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image-manipulation/utilities/Log.cs" beforeDir="false" afterPath="$PROJECT_DIR$/image-manipulation/utilities/Log.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/App.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/App.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/App.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/App.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/AppShell.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/AppShell.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/AppShell.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/AppShell.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/MainPage.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/MainPage.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/MainPage.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/MainPage.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/MauiProgram.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/MauiProgram.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Platforms/MacCatalyst/AppDelegate.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Platforms/MacCatalyst/AppDelegate.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Platforms/MacCatalyst/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Platforms/MacCatalyst/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/manipulator-client.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/manipulator-client.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +47,9 @@
   &quot;associatedIndex&quot;: 8
 }</component>
   <component name="ProjectId" id="2tjR62ppheLxfDmyj2jKfTSjaFE" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -100,7 +114,7 @@
       <option name="presentableId" value="Default" />
       <updated>1740863318617</updated>
       <workItem from="1740863321120" duration="570000" />
-      <workItem from="1740863899167" duration="1618000" />
+      <workItem from="1740863899167" duration="9547000" />
     </task>
     <servers />
   </component>

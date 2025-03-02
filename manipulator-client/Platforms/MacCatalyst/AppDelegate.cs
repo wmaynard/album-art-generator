@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace manipulator_client;
+namespace Maynard.ImageManipulator.Client;
 
 [Register("AppDelegate")]
 public class AppDelegate : MauiUIApplicationDelegate

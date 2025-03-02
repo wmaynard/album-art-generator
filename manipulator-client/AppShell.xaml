@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Shell
-    x:Class="manipulator_client.AppShell"
+    x:Class="Maynard.ImageManipulator.Client.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:manipulator_client"
+    xmlns:local="clr-namespace:Maynard.ImageManipulator.Client"
     Shell.FlyoutBehavior="Flyout"
     Title="manipulator_client">
 

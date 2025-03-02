@@ -1,4 +1,4 @@
-﻿namespace manipulator_client;
+﻿namespace Maynard.ImageManipulator.Client;
 
 public partial class AppShell : Shell
 {

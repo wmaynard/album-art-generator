@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace manipulator_client;
+namespace Maynard.ImageManipulator.Client;
 
 public class Program
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace manipulator_client;
+namespace Maynard.ImageManipulator.Client;
 
 public static class MauiProgram
 {

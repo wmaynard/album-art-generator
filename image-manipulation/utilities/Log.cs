@@ -2,6 +2,12 @@ using System.Text;
 
 namespace Maynard.Imaging.Utilities;
 
+public class LogEventArgs
+{
+    public string Message { get; set;  }
+    public Log.Severity Severity { get; set; }
+}
+
 public static class Log
 {
     private const int PADDING_TIMESTAMP = 12;
@@ -11,10 +17,26 @@ public static class Log
     private static readonly int PADDING_TO_MESSAGE = PADDING_TIMESTAMP + PADDING_SEVERITY + 7;
     private static readonly int END_OF_LINE = PADDING_TO_MESSAGE + MAX_MESSAGE_WIDTH + PADDING_EVENT_ID;
     private static readonly bool INITIALIZED = Initialize();
-    private enum Severity { Verbose, Info, Warn, Error, Critical }
+
+    private static readonly string HEADERS =
+        @$"
+{"Timestamp",-PADDING_TIMESTAMP} | Event ID   | {"Severity".PadRight(PADDING_SEVERITY)} | Message
+-----------------------------------------------------------------------------------------------------------------------"[1..];
+    public enum Severity { Verbose, Info, Warn, Error, Critical }
 
     private static Dictionary<int, long> _timestamps = new();
     private static int _counter;
+    private static EventHandler<LogEventArgs> _handler;
+
+    public static void Intercept(EventHandler<LogEventArgs> logHandler)
+    {
+        _handler += logHandler;
+        _handler.Invoke(null, new()
+        {
+            Severity = Severity.Verbose,
+            Message = HEADERS
+        });
+    }
 
     private class FilteringTextWriter(TextWriter original) : TextWriter
     {
@@ -27,11 +49,10 @@ public static class Log
     {
         if (INITIALIZED)
             return true;
-        
+
         Console.SetError(new FilteringTextWriter(Console.Error));
         Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.WriteLine($"{"Timestamp",-PADDING_TIMESTAMP} | Event ID   | {"Severity".PadRight(PADDING_SEVERITY)} | Message");
-        Console.WriteLine("-----------------------------------------------------------------------------------------------------------------------");
+        Console.WriteLine(HEADERS);
         return true;
     }
 
@@ -103,6 +124,7 @@ public static class Log
         };
         Console.WriteLine(sb.ToString());
         _timestamps[eventId] = TimestampMs.Now;
+        _handler?.Invoke(null, new() { Message = message, Severity = severity});
         return eventId;
     }
 
