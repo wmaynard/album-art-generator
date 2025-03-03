@@ -2,21 +2,21 @@ using Maynard.ImageManipulator.Client.Utilities;
 
 namespace Maynard.ImageManipulator.Client.Controls;
 
-public class PanelFromCode : ContentView
+public class Panel : ContentView
 {
-    private static readonly BindableProperty LABEL_TEXT_PROPERTY =
-        BindableProperty.Create(nameof(Title), typeof(string), typeof(PanelFromCode), "Default Text",
+    private static readonly BindableProperty KEY_LABEL_TEXT =
+        BindableProperty.Create(nameof(Title), typeof(string), typeof(Panel), "Default Text",
             propertyChanged: OnLabelTextChanged);
 
     public string Title
     {
-        get => (string)GetValue(LABEL_TEXT_PROPERTY);
-        set => SetValue(LABEL_TEXT_PROPERTY, value);
+        get => (string)GetValue(KEY_LABEL_TEXT);
+        set => SetValue(KEY_LABEL_TEXT, value);
     }
 
     private static void OnLabelTextChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        if (bindable is PanelFromCode panel && newValue is string newText)
+        if (bindable is Panel panel && newValue is string newText)
             panel.Label.Text = newText;
     }
 
@@ -25,8 +25,8 @@ public class PanelFromCode : ContentView
     private VerticalStackLayout Stack { get; set; }
     private ScrollView Scroller { get; set; }
     private Border Border { get; set; }
-
-    public PanelFromCode()
+    
+    public Panel()
     {
         Label = new()
         {
@@ -40,7 +40,6 @@ public class PanelFromCode : ContentView
             Spacing = 10,
             Padding = 10
         };
-        Stack.Children.Add(Label);
 
         Scroller = new()
         {
@@ -56,10 +55,10 @@ public class PanelFromCode : ContentView
             Background = WdmBrushes.BLACK,
             HorizontalOptions = LayoutOptions.FillAndExpand,
             VerticalOptions = LayoutOptions.FillAndExpand,
-            MinimumHeightRequest = 300
+            MinimumHeightRequest = 300,
         };
-
-        Stack.Add(Label);
+        
+        Stack.Children.Add(Label);
         Scroller.Content = Stack;
         Border.Content = Scroller;
         Content = Border;

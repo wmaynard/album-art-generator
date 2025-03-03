@@ -6,7 +6,7 @@
              x:Class="Maynard.ImageManipulator.Client.Pages.NewPage">
     <Grid RowDefinitions="7*,3*">
         <Grid Grid.Row="0" ColumnDefinitions="*,*,*">
-            <controls:PanelFromCode Grid.Column="0" Title="Panel 1"/>
+            <controls:Panel Grid.Column="0" Title="Panel 1"/>
             <!-- <controls:Panel Grid.Column="0" Title="Panel 1"> -->
             <!-- </controls:Panel> -->
             <controls:Panel Grid.Column="1" Title="Panel 2"/>
