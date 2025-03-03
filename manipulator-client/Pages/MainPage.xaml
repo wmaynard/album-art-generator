@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Maynard.ImageManipulator.Client.Controls"
              x:Class="Maynard.ImageManipulator.Client.Pages.MainPage">
     <Grid RowDefinitions="6*,4*">
         <Grid ColumnDefinitions="3*,2*,2*">
@@ -15,7 +16,9 @@
             
             <!-- Middle Panel: Actions List -->
             <VerticalStackLayout Grid.Column="1" Padding="10" x:Name="ActionPanel">
-                <CollectionView x:Name="ActionsListView" />
+                <controls:Panel WidthRequest="300" HeightRequest="300">
+                    <controls:ActionAdder />
+                </controls:Panel>
             </VerticalStackLayout>
             
             <!-- Right Panel: Image Preview -->

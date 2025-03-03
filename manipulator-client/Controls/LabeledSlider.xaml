@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maynard.ImageManipulator.Client.Controls.LabeledSlider">
+    
+    <VerticalStackLayout Padding="10">
+        <Label x:Name="TitleLabel" FontSize="16" />
+        <Slider x:Name="ValueSlider" Minimum="1" Maximum="10" ValueChanged="OnSliderValueChanged"/>
+    </VerticalStackLayout>
+</ContentView>

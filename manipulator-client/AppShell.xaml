@@ -7,6 +7,11 @@
     xmlns:pages="clr-namespace:Maynard.ImageManipulator.Client.Pages"
     Shell.FlyoutBehavior="Flyout"
     Title="manipulator_client">
+    
+    <ShellContent
+        Title="New Page"
+        ContentTemplate="{DataTemplate pages:NewPage}"
+        Route="NewPage" />
 
     <ShellContent
         Title="Home"

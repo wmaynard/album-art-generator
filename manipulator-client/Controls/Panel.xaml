@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maynard.ImageManipulator.Client.Controls.Panel"
+             x:Name="RootPanel"
+             BackgroundColor="Transparent">
+    <Border Stroke="#1097DE" StrokeThickness="2" Padding="5"
+            BackgroundColor="#252526" 
+            HorizontalOptions="FillAndExpand" 
+            VerticalOptions="FillAndExpand"
+            MinimumHeightRequest="300"> <!-- Ensure it's visible -->
+        <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <VerticalStackLayout x:Name="Layout" Spacing="10" Padding="10">
+                <Label x:Name="LabelTitle" 
+                       Text="{Binding Title, Source={x:Reference Name=RootPanel}}" 
+                       HorizontalTextAlignment="Center"/>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Border>
+</ContentView>

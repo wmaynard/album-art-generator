@@ -18,13 +18,9 @@
   <component name="ChangeListManager">
     <list default="true" id="8c68a337-0f70-42bb-9ad7-b50a934c0b58" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Batch Image Manipulator/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Batch Image Manipulator/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image-manipulation/Extensions/IsSquareExtension.cs" beforeDir="false" afterPath="$PROJECT_DIR$/image-manipulation/Extensions/IsSquareExtension.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image-manipulation/Extensions/PixelBreakdownExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/image-manipulation/Extensions/PixelBreakdownExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image-manipulation/Extensions/TilingExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/image-manipulation/Extensions/TilingExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image-manipulation/utilities/Log.cs" beforeDir="false" afterPath="$PROJECT_DIR$/image-manipulation/Utilities/Log.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image-manipulation/utilities/ReflectionHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/image-manipulation/Utilities/ReflectionHelper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image-manipulation/utilities/TimestampMs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/image-manipulation/Utilities/TimestampMs.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manipulator-client/Pages/MainPage.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Pages/MainPage.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/AppShell.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/AppShell.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Pages/MainPage.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Pages/MainPage.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/manipulator-client.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/manipulator-client.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +108,7 @@
       <option name="presentableId" value="Default" />
       <updated>1740863318617</updated>
       <workItem from="1740863321120" duration="570000" />
-      <workItem from="1740863899167" duration="24155000" />
+      <workItem from="1740863899167" duration="29980000" />
     </task>
     <servers />
   </component>
