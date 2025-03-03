@@ -29,5 +29,9 @@
 	<string>This app needs access to folders to select an image directory.</string>
 	<key>NSDownloadsFolderUsageDescription</key>
 	<string>This app needs access to folders for user-selected file storage.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+	</array>
 </dict>
 </plist>

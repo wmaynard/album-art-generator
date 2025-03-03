@@ -15,6 +15,7 @@
                 <Label x:Name="LabelTitle" 
                        Text="{Binding Title, Source={x:Reference Name=RootPanel}}" 
                        HorizontalTextAlignment="Center"/>
+                <ContentView x:Name="Placeholder" />
             </VerticalStackLayout>
         </ScrollView>
     </Border>
