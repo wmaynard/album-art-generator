@@ -17,18 +17,18 @@ public class Panel : ContentView
     private static void OnLabelTextChanged(BindableObject bindable, object oldValue, object newValue)
     {
         if (bindable is Panel panel && newValue is string newText)
-            panel.Label.Text = newText;
+            panel.TitleLabel.Text = newText;
     }
 
     // private readonly Label _titleLabel;
-    private Label Label { get; set; }
+    protected Label TitleLabel { get; set; }
     protected VerticalStackLayout Stack { get; set; }
     protected ScrollView Scroller { get; set; }
     protected Border Border { get; set; }
     
     public Panel()
     {
-        Label = new()
+        TitleLabel = new()
         {
             Text = Title ?? "Placeholder",
             HorizontalTextAlignment = TextAlignment.Center,
@@ -58,7 +58,7 @@ public class Panel : ContentView
             MinimumHeightRequest = 300,
         };
 
-        Stack.Children.Add(Label);
+        Stack.Children.Add(TitleLabel);
         Scroller.Content = Stack;
         Border.Content = Scroller;
         Content = Border;

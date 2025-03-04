@@ -57,7 +57,7 @@ public class FadeInVerticalStack : VerticalStackLayout
             IsAnimating = true;
             element.Opacity = 0;
             element.IsVisible = true;
-            await Tween.Linear(element, ele => ele.Opacity, 0, 1, seconds: 1, onComplete: BeginAnimation);
+            await Tween.Linear(element, ele => ele.Opacity, 0, 1, seconds: 0.25, onComplete: BeginAnimation);
         });
         IsAnimating = false;
     }

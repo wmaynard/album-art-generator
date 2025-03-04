@@ -12,11 +12,11 @@
         Title="New Page"
         ContentTemplate="{DataTemplate pages:NewPage}"
         Route="NewPage" />
-
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate pages:MainPage}"
-        Route="MainPage" />
+    <!-- -->
+    <!-- <ShellContent -->
+    <!--     Title="Home" -->
+    <!--     ContentTemplate="{DataTemplate pages:MainPage}" -->
+    <!--     Route="MainPage" /> -->
     
     <ShellContent
         Title="Help"

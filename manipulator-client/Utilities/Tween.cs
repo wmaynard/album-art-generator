@@ -20,9 +20,6 @@ public static class Tween
     
     public static async Task Linear<T>(T element, Expression<Func<T, double>> property, double start, double end, double seconds, EventHandler<TweenEventArgs> onComplete = null) where T : VisualElement
     {
-        Func<T, double> getter = property.Compile();
-        
-        
         if (property.Body is not MemberExpression memberExpr)
             throw new ArgumentException("Property must be a direct member expression", nameof(property));
 

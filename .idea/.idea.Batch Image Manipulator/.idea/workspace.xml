@@ -19,8 +19,15 @@
     <list default="true" id="8c68a337-0f70-42bb-9ad7-b50a934c0b58" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Batch Image Manipulator/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Batch Image Manipulator/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Batch Image Manipulator.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/Batch Image Manipulator.sln.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/AppShell.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/AppShell.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Controls/ActionPickerRow.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/manipulator-client/Controls/ComboBox.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Controls/ComboBox.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manipulator-client/Utilities/Gui.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Utilities/Gui.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Controls/FadeInVerticalStack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Controls/FadeInVerticalStack.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Controls/Panel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Controls/Panel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Pages/MainPage.xaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Pages/MainPage.xaml.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Utilities/Tween.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Utilities/Tween.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/manipulator-client.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/manipulator-client.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +47,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/45c2556881752cc6eff43a67ef91359146b5a1243c2fe7db445d43f3bd13/ContentView.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/4ec5ac1f1215ce2e9145ebf862faaad6376c59dacb6b776f4cc3fbff59e943/Layout.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/a6f52f75db0c77bb83f322fb52f52cef9cff6cdafbb94dfec214bab243d18/Task.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f0b3a4ddf3ffd11a524a28aed699abb45d112a2a31f6d9b1ef9ce60e71d981/Slider.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f75f4dceceddf4b9d0ddf8f29dddf92253cc508b7aef37495588b46ba378504a/MainThread.shared.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
@@ -115,7 +123,7 @@
       <option name="presentableId" value="Default" />
       <updated>1740863318617</updated>
       <workItem from="1740863321120" duration="570000" />
-      <workItem from="1740863899167" duration="59765000" />
+      <workItem from="1740863899167" duration="66463000" />
     </task>
     <servers />
   </component>
