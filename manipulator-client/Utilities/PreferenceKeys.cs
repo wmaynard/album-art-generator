@@ -5,4 +5,5 @@ public static class PreferenceKeys
     public const string CURRENT_DIRECTORY = "CurrentDirectory";
     public const string OUTPUT_DIRECTORY = "OutputDirectory";
     public const string ACTIONS = "Actions";
+    public const string PANEL_DIRECTORY = "PanelDirectory";
 }

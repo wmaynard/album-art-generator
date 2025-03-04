@@ -1,31 +1,38 @@
+using System.Diagnostics.CodeAnalysis;
 using CommunityToolkit.Maui.Storage;
 using Maynard.ImageManipulator.Client.Utilities;
 using Font = Microsoft.Maui.Graphics.Font;
 
 namespace Maynard.ImageManipulator.Client.Controls;
 
-public class DirectoryPanel : Panel
+public class DirectoryPanel : Panel, IPreferential
 {
-    protected DirectoryPicker Picker { get; set; }
-    public string CurrentDirectory => Picker.CurrentDirectory;
+    public string Id { get; init; } = PreferenceKeys.PANEL_DIRECTORY;
+    protected DirectoryPicker ScanPicker { get; set; }
+    protected DirectoryPicker OutputPicker { get; set; }
+    public string CurrentDirectory => ScanPicker.CurrentDirectory;
+    public string OutputDirectory => OutputPicker.CurrentDirectory;
     private Label ScannedDirectoryTitle { get; set; }
     private Label ScannedDirectoryCount { get; set; }
     private Label ScannedFilesTitle { get; set; }
     private Label ScannedFilesCount { get; set; }
     private Label ScanFailuresTitle { get; set; }
     private Label ScanFailuresCount { get; set; }
+    private Label OutputDirectoryLabel { get; set; }
     private Grid ResultsGrid { get; set; }
     private ActivityIndicator Throbber { get; set; }
     
     private List<string> ScannedImagePaths { get; set; } = new();
     private Button ScanAgain { get; set; }
+    private Button ClearOutput { get; set; }
     
     public DirectoryPanel()
     {
         Title = "Current Directory";
 
-        Picker = new()
+        ScanPicker = new()
         {
+            Id = PreferenceKeys.CURRENT_DIRECTORY,
             OnDirectorySelected = OnDirectoryChanged
         };
         ScannedDirectoryTitle = new() { HorizontalTextAlignment = TextAlignment.End, Text = "Scanned Directories: " };
@@ -59,6 +66,24 @@ public class DirectoryPanel : Panel
             IsVisible = false
         };
         ScanAgain.Clicked += OnScanAgainClicked;
+        OutputDirectoryLabel = new()
+        {
+            Text = "Output Directory (Optional)",
+            HorizontalTextAlignment = TextAlignment.Center,
+        };
+        OutputPicker = new()
+        {
+            Id = PreferenceKeys.OUTPUT_DIRECTORY,
+            OnDirectorySelected = OnOutputDirectoryChanged,
+            OnReset = OnOutputDirectoryChanged
+        };
+        ClearOutput = new()
+        {
+            Text = "Clear Output Directory",
+            IsVisible = false,
+            IsEnabled = false
+        };
+        ClearOutput.Clicked += OnClearOutputClicked;
         
         ResultsGrid.Add(ScannedDirectoryTitle, column: 0, row: 0);
         ResultsGrid.Add(ScannedDirectoryCount, column: 1, row: 0);
@@ -66,10 +91,19 @@ public class DirectoryPanel : Panel
         ResultsGrid.Add(ScanFailuresCount, column: 1, row: 1);
         ResultsGrid.Add(ScannedFilesTitle, column: 0, row: 2);
         ResultsGrid.Add(ScannedFilesCount, column: 1, row: 2);
-        Stack.Children.Add(Picker);
+        Stack.Children.Add(ScanPicker);
         Stack.Children.Add(ResultsGrid);
         Stack.Children.Add(Throbber);
         Stack.Children.Add(ScanAgain);
+        Stack.Children.Add(new BoxView // For extra padding
+        {
+            HeightRequest = 50,
+            Background = Brush.Transparent
+        });
+        Stack.Children.Add(OutputDirectoryLabel);
+        Stack.Children.Add(OutputPicker);
+        Stack.Children.Add(ClearOutput);
+        Load();
     }
 
     private CancellationTokenSource _cts = new();
@@ -84,7 +118,14 @@ public class DirectoryPanel : Panel
             Directory = new(CurrentDirectory)
         });
     }
-    
+
+    private void OnClearOutputClicked(object sender, EventArgs _) => OutputPicker.Reset();
+
+    private async void OnOutputDirectoryChanged(object _, DirectorySelectedEventArgs args)
+    {
+        ClearOutput.IsEnabled = ClearOutput.IsVisible = !string.IsNullOrWhiteSpace(OutputPicker.CurrentDirectory);
+        OutputPicker.Save();
+    }
     private async void OnDirectoryChanged(object _, DirectorySelectedEventArgs args)
     {
         await _cts.CancelAsync();
@@ -154,15 +195,35 @@ public class DirectoryPanel : Panel
             return new();
         }
     }
+
+    public void Reset()
+    {
+        ScanPicker.Reset();
+        OutputPicker.Reset();
+    }
+    public void Save()
+    {
+        ScanPicker.Save();
+        OutputPicker.Save();
+    }
+
+    public void Load()
+    {
+        ScanPicker.Load();
+        OutputPicker.Load();
+    }
 }
 
 public class DirectoryPicker : HorizontalStackLayout, IPreferential
 {
+    [NotNull]
+    public string Id { get; init; }
     protected Entry Entry { get; set; }
     protected Button OpenButton { get; set; }
     public string CurrentDirectory { get; set; }
     private static readonly string HOME_DIRECTORY = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
     public EventHandler<DirectorySelectedEventArgs> OnDirectorySelected { get; set; }
+    public EventHandler<DirectorySelectedEventArgs> OnReset { get; set; }
     
     public DirectoryPicker()
     {
@@ -227,11 +288,25 @@ public class DirectoryPicker : HorizontalStackLayout, IPreferential
         }
     }
 
-    public void Save() => Preferences.Set(PreferenceKeys.CURRENT_DIRECTORY, CurrentDirectory);
+    public void Reset()
+    {
+        CurrentDirectory = null;
+        Entry.Text = "";
+        OnReset?.Invoke(this, null);
+    }
+
+    public void Save()
+    {
+        Log.Info($"Saving '{Id}': '{CurrentDirectory}...");
+        Preferences.Set(Id, CurrentDirectory);
+    }
 
     public void Load()
     {
-        string path = Preferences.Get(PreferenceKeys.CURRENT_DIRECTORY, CurrentDirectory);
+        Log.Info($"Loading '{Id}'...");
+        if (string.IsNullOrWhiteSpace(Id))
+            return;
+        string path = Preferences.Get(Id, CurrentDirectory);
         if (string.IsNullOrWhiteSpace(path))
             path = HOME_DIRECTORY;
         CurrentDirectory = path;
@@ -256,6 +331,8 @@ public class DirectoryPicker : HorizontalStackLayout, IPreferential
 
 public interface IPreferential
 {
+    public string Id { get; init; }
+    public void Reset();
     public void Save();
     public void Load();
 }
