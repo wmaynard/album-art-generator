@@ -22,9 +22,9 @@ public class Panel : ContentView
 
     // private readonly Label _titleLabel;
     private Label Label { get; set; }
-    private VerticalStackLayout Stack { get; set; }
-    private ScrollView Scroller { get; set; }
-    private Border Border { get; set; }
+    protected VerticalStackLayout Stack { get; set; }
+    protected ScrollView Scroller { get; set; }
+    protected Border Border { get; set; }
     
     public Panel()
     {
@@ -44,7 +44,7 @@ public class Panel : ContentView
         Scroller = new()
         {
             HorizontalOptions = LayoutOptions.FillAndExpand,
-            VerticalOptions = LayoutOptions.FillAndExpand,
+            VerticalOptions = LayoutOptions.FillAndExpand
         };
 
         Border = new()
@@ -57,7 +57,7 @@ public class Panel : ContentView
             VerticalOptions = LayoutOptions.FillAndExpand,
             MinimumHeightRequest = 300,
         };
-        
+
         Stack.Children.Add(Label);
         Scroller.Content = Stack;
         Border.Content = Scroller;

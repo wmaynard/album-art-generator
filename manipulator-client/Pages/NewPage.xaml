@@ -6,9 +6,8 @@
              x:Class="Maynard.ImageManipulator.Client.Pages.NewPage">
     <Grid RowDefinitions="7*,3*">
         <Grid Grid.Row="0" ColumnDefinitions="*,*,*">
-            <controls:Panel Grid.Column="0" Title="Panel 1"/>
-            <!-- <controls:Panel Grid.Column="0" Title="Panel 1"> -->
-            <!-- </controls:Panel> -->
+            <!-- <controls:Panel Grid.Column="0" Title="Panel 1"/> -->
+            <controls:DirectoryPanel Grid.Column="0" Title="Current Directory"/>
             <controls:Panel Grid.Column="1" Title="Panel 2"/>
             <controls:Panel Grid.Column="2" Title="Panel 3"/>
         </Grid>
