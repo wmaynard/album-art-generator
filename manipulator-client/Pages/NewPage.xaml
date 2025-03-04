@@ -8,7 +8,8 @@
         <Grid Grid.Row="0" ColumnDefinitions="*,*,*">
             <!-- <controls:Panel Grid.Column="0" Title="Panel 1"/> -->
             <controls:DirectoryPanel Grid.Column="0" Title="Current Directory"/>
-            <controls:Panel Grid.Column="1" Title="Panel 2"/>
+            <controls:ActionPanel Grid.Column="1" Title="Actions"/>
+            <!-- <controls:Panel Grid.Column="1" Title="Panel 2"/> -->
             <controls:Panel Grid.Column="2" Title="Panel 3"/>
         </Grid>
         <Grid Grid.Row="1">
