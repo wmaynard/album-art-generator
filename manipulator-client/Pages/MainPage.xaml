@@ -17,7 +17,6 @@
             <!-- Middle Panel: Actions List -->
             <VerticalStackLayout Grid.Column="1" Padding="10" x:Name="ActionPanel">
                 <controls:Panel WidthRequest="300" HeightRequest="300">
-                    <controls:ActionAdder />
                 </controls:Panel>
             </VerticalStackLayout>
             

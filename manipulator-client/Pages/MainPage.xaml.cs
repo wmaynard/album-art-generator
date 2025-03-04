@@ -169,18 +169,6 @@ public partial class MainPage : ContentPage
         
     }
     
-    public async void ShowToast(string message)
-    {
-        Toast toast = new();
-        AbsoluteLayout.SetLayoutFlags(toast, AbsoluteLayoutFlags.PositionProportional);
-        
-        Point position = GetMousePosition();
-        await toast.ShowToast(message, position.X, position.Y);
-        
-        AbsoluteLayout absoluteLayout = (AbsoluteLayout)Content;
-        absoluteLayout.Children.Add(toast);
-    }
-    
     private Point GetMousePosition()
     {
 #if WINDOWS
