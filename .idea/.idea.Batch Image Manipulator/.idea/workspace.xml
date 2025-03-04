@@ -18,7 +18,10 @@
   <component name="ChangeListManager">
     <list default="true" id="8c68a337-0f70-42bb-9ad7-b50a934c0b58" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Batch Image Manipulator/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Batch Image Manipulator/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manipulator-client/Controls/DirectoryPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Controls/DirectoryPanel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Controls/ConsoleWindow.xaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Controls/ConsoleWindow.xaml.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Pages/NewPage.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Pages/NewPage.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Utilities/Gui.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Utilities/Gui.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +112,7 @@
       <option name="presentableId" value="Default" />
       <updated>1740863318617</updated>
       <workItem from="1740863321120" duration="570000" />
-      <workItem from="1740863899167" duration="50515000" />
+      <workItem from="1740863899167" duration="52202000" />
     </task>
     <servers />
   </component>

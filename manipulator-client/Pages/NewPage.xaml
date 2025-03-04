@@ -13,7 +13,7 @@
         </Grid>
         <Grid Grid.Row="1">
             <controls:Panel>
-                <controls:ConsoleWindow />
+                <controls:Terminal />
             </controls:Panel>
         </Grid>
     </Grid>
