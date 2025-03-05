@@ -110,6 +110,10 @@ public class PreviewPanel : Panel
             Log.Info("Update task was cancelled.");
             await LoadingBar.MarkComplete("Canceled; more changes detected.");
         }
+        catch (Exception e)
+        {
+            Log.Error($"Unexpected problem when processing image. ({e.Message}");
+        }
     }
 }
 
