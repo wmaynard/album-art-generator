@@ -10,6 +10,7 @@ public static class Gui
         {
             await MainThread.InvokeOnMainThreadAsync(action);
         }
+        catch (TaskCanceledException) { }
         catch (Exception e)
         {
             Log.Error($"Unable to update main UI thread. ({e.Message})");
@@ -22,6 +23,7 @@ public static class Gui
         {
             MainThread.InvokeOnMainThreadAsync(action);
         }
+        catch (TaskCanceledException) { }
         catch (Exception e)
         {
             Log.Error($"Unable to update main UI thread. ({e.Message})");

@@ -96,8 +96,10 @@ public class SliderWithLabels : VerticalStackLayout
     {
         int previous = (int)Math.Round(args.OldValue);
         int current = (int)Math.Round(args.NewValue);
+            
         Slider.Value = current;
         await Gui.Update(() => CurrentLabel.Text = $"{current}");
-        ValueChanged?.Invoke(this, new(previous, current));
+        if (previous != current)
+            ValueChanged?.Invoke(this, new(previous, current));
     }
 }

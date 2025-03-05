@@ -38,15 +38,10 @@ public class FadeInVerticalStack : VerticalStackLayout
             BeginAnimation();
     }
 
-    private async void BeginAnimation(object sender = null, TweenEventArgs e = null)
+    private async void BeginAnimation(object sender = null, TweenEventArgs args = null)
     {
-        if (e != null)
-        {
-            int index = Children.IndexOf(e.Element);
-            string name = e.Element.GetType().Name;
-            Log.Info($"Animation finished. (#{index} | {name} | Opacity: {e.Element.Opacity} | Visible: {e.Element.IsVisible})");
-        }
-        Log.Info("Starting animation...");
+        // Note: if args is not null, a previous animation just finished.
+        
         await Gui.Update(async () =>
         {
             if (!_animationQueue.TryDequeue(out VisualElement element))
@@ -57,7 +52,7 @@ public class FadeInVerticalStack : VerticalStackLayout
             IsAnimating = true;
             element.Opacity = 0;
             element.IsVisible = true;
-            await Tween.Linear(element, ele => ele.Opacity, 0, 1, seconds: 0.25, onComplete: BeginAnimation);
+            await Tween.Linear(element, ele => ele.Opacity, 0, 1, seconds: 0.1, onComplete: BeginAnimation);
         });
         IsAnimating = false;
     }
