@@ -1,6 +1,7 @@
 using Maynard.Imaging.Utilities;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 
 namespace Maynard.Imaging.Extensions;
 
@@ -41,6 +42,8 @@ public static class CropToSquareExtension
                     data.Enqueue(row[x++]);
             }
         });
+        
+        self.Mutate(x => x.Resize(dimension, dimension));
         
         self.ProcessPixelRows(image =>
         {
