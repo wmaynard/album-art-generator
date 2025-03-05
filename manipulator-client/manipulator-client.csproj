@@ -67,11 +67,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="samples\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <None Update="samples\mandrill.jpg">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Samples\mandrill-processed.jpg">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>

@@ -1,3 +1,5 @@
+using Maynard.ImageManipulator.Client.Controls.Panels;
+using Maynard.ImageManipulator.Client.Enums;
 using Maynard.ImageManipulator.Client.Events;
 using Maynard.ImageManipulator.Client.Utilities;
 
@@ -5,6 +7,7 @@ namespace Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions;
 
 public abstract class ActionDefinition : Panel
 {
+    public abstract string LoadingMessage { get; }
     public string EffectName { get; init; }
     private Grid HeaderGrid { get; set; }
     private Button RemoveButton { get; set; }
@@ -71,4 +74,6 @@ public abstract class ActionDefinition : Panel
             return;
         ButtonClicked?.Invoke(this, new(type));
     }
+
+    public abstract Picture Process(Picture image);
 }

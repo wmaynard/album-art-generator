@@ -1,11 +1,14 @@
 using Maynard.ImageManipulator.Client.Utilities;
+using Maynard.Imaging.Extensions;
 
 namespace Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions;
 
 public class BlurDefinition : ActionDefinition
 {
+    public override string LoadingMessage => $"Blurring image with strength {Strength}...";
     private Label StrengthLabel { get; set; }
     private SliderWithLabels StrengthSlider { get; set; }
+    public int Strength => (int)StrengthSlider.Value;
     
     public BlurDefinition() : base("Blur", ActionDescriptions.BLUR)
     {
@@ -26,5 +29,10 @@ public class BlurDefinition : ActionDefinition
         
         Stack.Add(StrengthLabel);
         Stack.Add(StrengthSlider);
+    }
+
+    public override Picture Process(Picture picture)
+    {
+        return picture.Blur(Strength);
     }
 }

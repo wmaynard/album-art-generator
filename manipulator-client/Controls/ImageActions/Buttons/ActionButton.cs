@@ -1,3 +1,4 @@
+using Maynard.ImageManipulator.Client.Controls.Panels;
 using Maynard.ImageManipulator.Client.Events;
 using Maynard.ImageManipulator.Client.Utilities;
 

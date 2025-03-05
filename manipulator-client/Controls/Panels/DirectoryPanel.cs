@@ -5,7 +5,7 @@ using Maynard.ImageManipulator.Client.Interfaces;
 using Maynard.ImageManipulator.Client.Utilities;
 using Font = Microsoft.Maui.Graphics.Font;
 
-namespace Maynard.ImageManipulator.Client.Controls;
+namespace Maynard.ImageManipulator.Client.Controls.Panels;
 
 public class DirectoryPanel : Panel, IPreferential
 {

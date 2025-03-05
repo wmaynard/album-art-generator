@@ -3,19 +3,21 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:Maynard.ImageManipulator.Client.Controls"
+             xmlns:panels="clr-namespace:Maynard.ImageManipulator.Client.Controls.Panels"
              x:Class="Maynard.ImageManipulator.Client.Pages.NewPage">
-    <Grid RowDefinitions="7*,3*">
+    <Grid RowDefinitions="9*,1*">
         <Grid Grid.Row="0" ColumnDefinitions="*,*,*">
             <!-- <controls:Panel Grid.Column="0" Title="Panel 1"/> -->
-            <controls:DirectoryPanel Grid.Column="0" Title="Current Directory"/>
-            <controls:ActionPanel Grid.Column="1" Title="Actions"/>
             <!-- <controls:Panel Grid.Column="1" Title="Panel 2"/> -->
-            <controls:Panel Grid.Column="2" Title="Panel 3"/>
+            <!-- <panels:Panel Grid.Column="2" Title="Panel 3"/> -->
+            <panels:DirectoryPanel Grid.Column="0" Title="Current Directory"/>
+            <panels:ActionPanel Grid.Column="1" Title="Actions"/>
+            <panels:PreviewPanel Grid.Column="2" Title="Preview"/>
         </Grid>
         <Grid Grid.Row="1">
-            <controls:Panel>
+            <panels:Panel>
                 <controls:Terminal />
-            </controls:Panel>
+            </panels:Panel>
         </Grid>
     </Grid>
 </ContentPage>

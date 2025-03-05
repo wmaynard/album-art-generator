@@ -3,6 +3,7 @@ using Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions;
 using Maynard.ImageManipulator.Client.Enums;
 using Maynard.ImageManipulator.Client.Events;
 using Maynard.ImageManipulator.Client.Utilities;
+using Maynard.ImageManipulator.Client.Controls.Panels;
 
 namespace Maynard.ImageManipulator.Client.Controls;
 

@@ -1,6 +1,6 @@
 using Maynard.ImageManipulator.Client.Utilities;
 
-namespace Maynard.ImageManipulator.Client.Controls;
+namespace Maynard.ImageManipulator.Client.Controls.Panels;
 
 public class Panel : ContentView
 {
