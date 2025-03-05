@@ -1,3 +1,4 @@
+using Maynard.ImageManipulator.Client.Controls.ImageActions.Buttons;
 using Maynard.ImageManipulator.Client.Controls.Panels;
 using Maynard.ImageManipulator.Client.Enums;
 using Maynard.ImageManipulator.Client.Events;

@@ -94,7 +94,9 @@ public class PreviewPanel : Panel
                 {
                     ActionDefinition definition = args.Actions[steps];
                     await LoadingBar.SetMesasge(definition.LoadingMessage);
-                    clone = definition.Process(clone);
+                    clone = definition is SuperimposeDefinition superimpose
+                        ? superimpose.Process(clone, original)
+                        : definition.Process(clone);
                     Processed.Base64 = clone.ToBase64();
                     await LoadingBar.ProgressTo(definition.LoadingMessage, steps + 1);
                 }

@@ -1,3 +1,4 @@
+using System.Reflection;
 using Maynard.ImageManipulator.Client.Controls.ImageActions.Buttons;
 using Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions;
 using Maynard.ImageManipulator.Client.Enums;
@@ -35,13 +36,15 @@ public class ComboBox : VerticalStackLayout
 
         NestedStack.Add(new EmptySpace(10));
         
-        NestedStack.Add(new BlurButton { Clicked = ActionButtonClicked });
-        for (int i = 0; i < 3; i++)
+        ActionButton[] buttons = Assembly.GetExecutingAssembly()
+            .GetTypes()
+            .Where(type => type.IsClass && !type.IsAbstract && type.IsSubclassOf(typeof(ActionButton)))
+            .Select(type => (ActionButton)Activator.CreateInstance(type))
+            .ToArray();
+        foreach (ActionButton button in buttons)
         {
-            // NestedStack.Add(new Button { Text = $"Add Action {i}" });
-            NestedStack.Add(new EmptySpace(10));
-            NestedStack.Add(new Label { Text = $"Description for {i}" });
-            NestedStack.Add(new EmptySpace(30));
+            button.Clicked += ActionButtonClicked;
+            NestedStack.Add(button);
         }
 
         Add(NewActionButton);
