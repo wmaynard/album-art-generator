@@ -11,5 +11,5 @@ public partial class TransformationPage : ContentPage
     public TransformationPage()
     {
         InitializeComponent();
-    }
+    } // TODO: Add change events to loaded action definitions
 }
