@@ -54,17 +54,6 @@ public class ComboBox : VerticalStackLayout, IPreferential
         Load();
     }
 
-    // private async Task InsertChild(IView view)
-    // {
-    //     int index = Children.IndexOf(NewActionButton);
-    //     if (view is VisualElement visual)
-    //     {
-    //         visual.Opacity = 0;
-    //         Children.Insert(index, view);
-    //         await Tween.Linear(visual, element => element.Opacity, 0, 1, seconds: .25);
-    //     }
-    // }
-
     private async Task InsertChildAt(IView view, int? index = null)
     {
         if (Children.Contains(view))
@@ -137,7 +126,11 @@ public class ComboBox : VerticalStackLayout, IPreferential
     public void Reset() => Load();
     public string TransformationString => ActionDefinition.Serialize(Actions.ToArray());
 
-    public void Save() => Preferences.Set(Id, ActionDefinition.Serialize(Actions.ToArray()));
+    public void Save()
+    {
+        Preferences.Set(Id, ActionDefinition.Serialize(Actions.ToArray()));
+        Log.Info("Current transformation saved.");
+    }
 
     public async void Load() => Load(null);
     public async void Load(string fromTransformation)
@@ -155,7 +148,11 @@ public class ComboBox : VerticalStackLayout, IPreferential
                 Children.Remove(definition);
             Actions = ActionDefinition.Deserialize(data).ToList();
             for (int i = 0; i < Actions.Count; i++)
+            {
+                Actions[i].ButtonClicked += DefinitionButtonClicked;
+                Actions[i].EffectUpdated += FireEventUpdated;
                 await InsertChildAt(Actions[i], i);
+            }
         }
         catch (Exception e)
         {
