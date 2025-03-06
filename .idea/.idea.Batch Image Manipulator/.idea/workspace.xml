@@ -18,9 +18,20 @@
   <component name="ChangeListManager">
     <list default="true" id="8c68a337-0f70-42bb-9ad7-b50a934c0b58" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Batch Image Manipulator/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Batch Image Manipulator/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manipulator-client/Controls/ImageActions/Buttons/BlurButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Controls/ImageActions/Buttons/BlurButton.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Controls/ComboBox.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Controls/ComboBox.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Controls/ImageActions/Buttons/CropToSquareButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Controls/ImageActions/Buttons/CropToSquareButton.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Controls/ImageActions/Definitions/ActionDefinition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Controls/ImageActions/Definitions/ActionDefinition.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Controls/ImageActions/Definitions/BlurDefinition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Controls/ImageActions/Definitions/BlurDefinition.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Controls/ImageActions/Definitions/CropToSquareDefinition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Controls/ImageActions/Definitions/CropToSquareDefinition.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Controls/ImageActions/Definitions/RadialDimDefinition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Controls/ImageActions/Definitions/RadialDimDefinition.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Controls/ImageActions/Definitions/ResizeDefinition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Controls/ImageActions/Definitions/ResizeDefinition.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Controls/ImageActions/Definitions/ScaleToMaxDefinition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Controls/ImageActions/Definitions/ScaleToMaxDefinition.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/manipulator-client/Controls/ImageActions/Definitions/SpotifyDefinition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Controls/ImageActions/Definitions/SpotifyDefinition.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manipulator-client/Controls/Panels/PreviewPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Controls/Panels/PreviewPanel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Controls/ImageActions/Definitions/SuperimposeDefinition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Controls/ImageActions/Definitions/SuperimposeDefinition.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Controls/ImageActions/Definitions/UpscaleDefinition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Controls/ImageActions/Definitions/UpscaleDefinition.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Controls/LabeledNumericEntry.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Controls/LabeledNumericEntry.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Controls/Panels/ActionPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Controls/Panels/ActionPanel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Controls/Panels/DirectoryPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Controls/Panels/DirectoryPanel.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +130,7 @@
       <option name="presentableId" value="Default" />
       <updated>1740863318617</updated>
       <workItem from="1740863321120" duration="570000" />
-      <workItem from="1740863899167" duration="90191000" />
+      <workItem from="1740863899167" duration="101395000" />
     </task>
     <servers />
   </component>

@@ -1,7 +1,9 @@
+using System.Text;
 using Maynard.ImageManipulator.Client.Controls.ImageActions.Buttons;
 using Maynard.ImageManipulator.Client.Controls.Panels;
 using Maynard.ImageManipulator.Client.Enums;
 using Maynard.ImageManipulator.Client.Events;
+using Maynard.ImageManipulator.Client.Interfaces;
 using Maynard.ImageManipulator.Client.Utilities;
 
 namespace Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions;
@@ -77,4 +79,68 @@ public abstract class ActionDefinition : Panel
     }
 
     public abstract Picture Process(Picture image);
+    
+    
+    
+    public abstract object[] ConfigurableValues { get; }
+
+    private const char SEPARATOR = '\u2318';
+    private const char CLASS_SEPARATOR = '\u2325';
+    public string Serialize()
+    {
+        StringBuilder sb = new();
+        sb.Append(GetType().FullName);
+        sb.Append(SEPARATOR);
+        if (ConfigurableValues != null)
+            foreach (object value in ConfigurableValues)
+            {
+                sb.Append(value);
+                sb.Append(SEPARATOR);
+            }
+
+        return sb.ToString();
+    }
+    public static string Serialize(params ActionDefinition[] actions) 
+        => string.Join(CLASS_SEPARATOR, actions.Select(action => action.Serialize()));
+
+    // This is WET with Deserialize
+    public static string[] Describe(string data)
+    {
+        List<string> output = new();
+        string[] definitionStrings = data.Split(CLASS_SEPARATOR);
+        foreach (string definitionString in definitionStrings)
+        {
+            string[] parts = definitionString.Split(CLASS_SEPARATOR);
+            string name = parts.First();
+            name = name[(name.LastIndexOf('.') + 1)..];
+            string[] parameters = parts.Skip(1).ToArray();
+            output.Add($"{name}({string.Join(", ", parameters)})");
+        }
+
+        return output.ToArray();
+    }
+    public static ActionDefinition[] Deserialize(string data)
+    {
+        List<ActionDefinition> output = new();
+        string[] definitionStrings = data.Split(CLASS_SEPARATOR);
+        foreach (string definitionString in definitionStrings)
+        {
+            string[] parts = definitionString.Split(SEPARATOR);
+            string name = parts.First();
+            string[] parameters = parts.Skip(1).ToArray();
+            ActionDefinition instance = (ActionDefinition)Activator.CreateInstance(Type.GetType(name));
+            if (instance == null)
+            {
+                Log.Error($"Failed to load an instance of {name[(name.LastIndexOf('.') + 1)..]}, it will be ignored.");
+                continue;
+            }
+
+            instance.Deserialize(parameters);
+            output.Add(instance);
+        }
+
+        return output.ToArray();
+    }
+
+    protected abstract void Deserialize(string[] values);
 }

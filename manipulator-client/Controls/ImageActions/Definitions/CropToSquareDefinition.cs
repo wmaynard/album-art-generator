@@ -7,4 +7,6 @@ public class CropToSquareDefinition() : ActionDefinition("Crop to Square", Actio
 {
     public override string LoadingMessage => "Cropping to square dimensions...";
     public override Picture Process(Picture picture) => picture.CropToSquare();
+    public override object[] ConfigurableValues => null;
+    protected override void Deserialize(string[] values) { }
 }

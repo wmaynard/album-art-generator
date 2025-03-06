@@ -8,4 +8,6 @@ public class SuperimposeDefinition() : ActionDefinition("Superimpose Original", 
     public override string LoadingMessage => "Superimposing original image...";
     public override Picture Process(Picture image) => throw new NotImplementedException();
     public Picture Process(Picture picture, Picture other) => picture.Superimpose(other);
+    public override object[] ConfigurableValues => null;
+    protected override void Deserialize(string[] values) { }
 }

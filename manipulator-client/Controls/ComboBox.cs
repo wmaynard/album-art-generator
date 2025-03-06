@@ -5,10 +5,11 @@ using Maynard.ImageManipulator.Client.Enums;
 using Maynard.ImageManipulator.Client.Events;
 using Maynard.ImageManipulator.Client.Utilities;
 using Maynard.ImageManipulator.Client.Controls.Panels;
+using Maynard.ImageManipulator.Client.Interfaces;
 
 namespace Maynard.ImageManipulator.Client.Controls;
 
-public class ComboBox : VerticalStackLayout
+public class ComboBox : VerticalStackLayout, IPreferential
 {
     private Button NewActionButton { get; set; }
     private Grid Grid { get; set; }
@@ -50,6 +51,7 @@ public class ComboBox : VerticalStackLayout
         Add(NewActionButton);
         Grid.Add(NestedStack, column: 1, row: 0);
         Add(Grid);
+        Load();
     }
 
     // private async Task InsertChild(IView view)
@@ -128,8 +130,40 @@ public class ComboBox : VerticalStackLayout
         Actions.Clear();
         Actions.AddRange(Children.OfType<ActionDefinition>());
         Updated?.Invoke(sender ?? this, new(Actions.ToArray()));
+        Save();
     }
     private void OnClick_NewAction(object sender, EventArgs e) => NestedStack.Show();
+    public string Id { get; init; } = PreferenceKeys.ACTIONS;
+    public void Reset() => Load();
+    public string TransformationString => ActionDefinition.Serialize(Actions.ToArray());
+
+    public void Save() => Preferences.Set(Id, ActionDefinition.Serialize(Actions.ToArray()));
+
+    public async void Load() => Load(null);
+    public async void Load(string fromTransformation)
+    {
+        string data = fromTransformation ?? Preferences.Get(Id, null);
+        if (string.IsNullOrWhiteSpace(data))
+        {
+            Log.Info("No saved actions defined.");
+            return;
+        }
+
+        try
+        {
+            foreach (ActionDefinition definition in Children.OfType<ActionDefinition>())
+                Children.Remove(definition);
+            Actions = ActionDefinition.Deserialize(data).ToList();
+            for (int i = 0; i < Actions.Count; i++)
+                await InsertChildAt(Actions[i], i);
+        }
+        catch (Exception e)
+        {
+            Log.Error($"Unable to load action definitions.  The saved data will be lost. ({e.Message})");
+            Preferences.Set(Id, null);
+        }
+        Updated?.Invoke(this, new(Actions.ToArray()));
+    }
 }
 
 public class ComboBoxUpdatedArgs(ActionDefinition[] actions) : EventArgs

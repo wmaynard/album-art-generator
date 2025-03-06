@@ -16,4 +16,6 @@ public class UpscaleDefinition : ActionDefinition
 
     public override string LoadingMessage => $"Upscaling an image to a minimum dimension of {Entry.Value} pixels...";
     public override Picture Process(Picture image) => image.Upscale(targetMinimum: Entry.Value);
+    public override object[] ConfigurableValues => [Entry.Value];
+    protected override void Deserialize(string[] values) { Entry.Value = int.Parse(values[0]); }
 }

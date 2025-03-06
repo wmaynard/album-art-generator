@@ -7,4 +7,6 @@ public class ScaleToMaxDefinition() : ActionDefinition("Scale to Max", ActionDes
 {
     public override string LoadingMessage => "Scaling an image to its max dimension...";
     public override Picture Process(Picture image) => image.ScaleToMaxDimension();
+    public override object[] ConfigurableValues => null;
+    protected override void Deserialize(string[] values) { }
 }

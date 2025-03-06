@@ -18,4 +18,11 @@ public class ResizeDefinition : ActionDefinition
     }
     public override string LoadingMessage => $"Resizing an image to {WidthEntry.Value}x{HeightEntry.Value}...";
     public override Picture Process(Picture image) => image.Resize(WidthEntry.Value, HeightEntry.Value);
+    public override object[] ConfigurableValues => [WidthEntry.Value, HeightEntry.Value];
+
+    protected override void Deserialize(string[] values)
+    {
+        WidthEntry.Value = int.Parse(values[0]);
+        HeightEntry.Value = int.Parse(values[1]);
+    }
 }
