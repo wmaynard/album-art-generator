@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Maynard.ImageManipulator.Client.Pages;
 
-public partial class NewPage : ContentPage
+public partial class LoadPage : ContentPage
 {
-    public NewPage()
+    public LoadPage()
     {
         InitializeComponent();
     }
