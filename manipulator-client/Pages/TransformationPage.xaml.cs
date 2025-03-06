@@ -8,8 +8,5 @@ namespace Maynard.ImageManipulator.Client.Pages;
 
 public partial class TransformationPage : ContentPage
 {
-    public TransformationPage()
-    {
-        InitializeComponent();
-    } // TODO: Add change events to loaded action definitions
+    public TransformationPage() => InitializeComponent();
 }

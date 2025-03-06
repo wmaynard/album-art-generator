@@ -8,13 +8,13 @@ public static partial class TransformationPersistenceManager
 {
     private const string PREFIX = "CustomTransformation";
     private const int BUILT_IN_START = 1;
-    private const int START = 100;
+    public const int CUSTOM_START = 100;
     private const char SEPARATOR = '\uf8ff';
 
     private static string GenerateKey(int index) => $"{PREFIX}{index}";
     private static int GetNextKey()
     {
-        int next = START;
+        int next = CUSTOM_START;
         while (Preferences.ContainsKey(GenerateKey(next)))
             next++;
         return next;
@@ -23,23 +23,16 @@ public static partial class TransformationPersistenceManager
     public static void Delete(string key)
     {
         int number = int.Parse(IntegerRegex().Match(key).Value);
-        string current = null;
-        string next = null;
         while (Preferences.ContainsKey(GenerateKey(number + 1)))
-        {
-            current = GenerateKey(number);
-            next = GenerateKey(number + 1);
-            Preferences.Set(current, Preferences.Get(next, null));
-            number++;
-        }
-        Preferences.Remove(current ?? key);
+            Preferences.Set(GenerateKey(number), Preferences.Get(GenerateKey(number++ + 1), null));
+        Preferences.Remove(GenerateKey(number));
     }
 
     public static CustomTransformationData[] List()
     {
         List<CustomTransformationData> output = new();
         output.AddRange(Scan(BUILT_IN_START));
-        output.AddRange(Scan(START));
+        output.AddRange(Scan(CUSTOM_START));
         return output.ToArray();
     }
 
@@ -57,7 +50,7 @@ public static partial class TransformationPersistenceManager
             output.Add(new()
             {
                 Key = key,
-                Index = start,
+                Index = start++,
                 Description = parts.First(),
                 Actions = ActionDefinition.Describe(parts.Last())
             });
@@ -87,16 +80,16 @@ public static partial class TransformationPersistenceManager
         return transformation;
     }
 
-    public class CustomTransformationData
-    {
-        public bool IsBuiltIn => Index < START;
-        public string Key { get; init; }
-        public int Index { get; init; }
-        public string Description { get; init; }
-        public string[] Actions { get; set; }
-    }
-
+ 
     [GeneratedRegex(@"\d+$")]
     private static partial Regex IntegerRegex();
 }
 
+public class CustomTransformationData
+{
+    public bool IsBuiltIn => Index < TransformationPersistenceManager.CUSTOM_START;
+    public string Key { get; init; }
+    public int Index { get; init; }
+    public string Description { get; init; }
+    public string[] Actions { get; set; }
+}

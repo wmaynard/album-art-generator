@@ -2,8 +2,14 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:panels="clr-namespace:Maynard.ImageManipulator.Client.Controls.Panels"
              x:Class="Maynard.ImageManipulator.Client.Pages.LoadPage">
     <ContentPage.Content>
-        
+        <Grid RowDefinitions="*">
+            <Grid Grid.Row="0" ColumnDefinitions="7*,3*">
+                <panels:SavedTransformationPanel Grid.Column="0" Title="My Transformations" Columns="2" Loaded="VisualElement_OnLoaded"/>
+                <panels:SavedTransformationPanel Grid.Column="1" Title="Examples" Columns="1"/>
+            </Grid>
+        </Grid>    
     </ContentPage.Content>
 </ContentPage>

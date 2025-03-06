@@ -30,7 +30,6 @@ public class ComboBox : VerticalStackLayout, IPreferential
             {
                 new() { Width = new(2, GridUnitType.Star) },
                 new() { Width = new(8, GridUnitType.Star) },
-                // new() { Width = new(1, GridUnitType.Star) },
             },
         };
         NestedStack = new();
