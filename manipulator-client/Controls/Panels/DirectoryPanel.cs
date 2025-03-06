@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using CommunityToolkit.Maui.Storage;
+using CommunityToolkit.Maui.Views;
 using Maynard.ImageManipulator.Client.Events;
 using Maynard.ImageManipulator.Client.Interfaces;
 using Maynard.ImageManipulator.Client.Utilities;
@@ -27,6 +28,7 @@ public class DirectoryPanel : Panel, IPreferential
     private List<string> ScannedImagePaths { get; set; } = new();
     private Button ScanAgain { get; set; }
     private Button ClearOutput { get; set; }
+    private Button SaveActionSetButton { get; set; }
     
     public DirectoryPanel()
     {
@@ -86,6 +88,12 @@ public class DirectoryPanel : Panel, IPreferential
             IsEnabled = false
         };
         ClearOutput.Clicked += OnClearOutputClicked;
+
+        SaveActionSetButton = new()
+        {
+            Text = "Save Current Transformation"
+        };
+        SaveActionSetButton.Clicked += SaveActionClicked;
         
         ResultsGrid.Add(ScannedDirectoryTitle, column: 0, row: 0);
         ResultsGrid.Add(ScannedDirectoryCount, column: 1, row: 0);
@@ -105,11 +113,31 @@ public class DirectoryPanel : Panel, IPreferential
         Stack.Children.Add(OutputDirectoryLabel);
         Stack.Children.Add(OutputPicker);
         Stack.Children.Add(ClearOutput);
+        Stack.Add(SaveActionSetButton);
         Load();
     }
 
     private CancellationTokenSource _cts = new();
 
+    private async void SaveActionClicked(object sender, EventArgs e)
+    {
+        IView view = this;
+        while (view != null && view is not Page page)
+            view = view.Parent as IView;
+        if (view == null)
+        {
+            Log.Error("Could not fetch Page; unable to save.");
+            return;
+        }
+        
+        string description = (string)await ((Page)view).ShowPopupAsync(new SaveTransformationPopup());
+        if (string.IsNullOrWhiteSpace(description))
+        {
+            Log.Info("Unable to save current transformation; the popup was canceled or an empty value entered.");
+            return;
+        }
+        TransformationPersistenceManager.Save(description);
+    }
     private void OnScanAgainClicked(object sender, EventArgs __)
     {
         if (sender is Button button)

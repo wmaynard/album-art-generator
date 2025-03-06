@@ -12,7 +12,12 @@ public partial class LabeledNumericEntry : Grid
     private Label RangeLabel { get; init; }
     private Entry Entry { get; init; }
     private string PreviousText { get; set; }
-    public int Value => Parse();
+
+    public int Value
+    {
+        get => Parse();
+        set => Entry.Text = value.ToString();
+    }
     
     public LabeledNumericEntry(string label, int minimum, int maximum)
     {
