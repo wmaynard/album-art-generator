@@ -79,8 +79,7 @@ public abstract class ActionDefinition : Panel
     }
 
     public abstract Picture Process(Picture image);
-    
-    
+    public abstract Func<Picture, string, Picture> GenerateDelegate();
     
     public abstract object[] ConfigurableValues { get; }
 

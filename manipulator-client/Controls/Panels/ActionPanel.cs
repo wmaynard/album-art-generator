@@ -11,6 +11,11 @@ public class ActionPanel : Panel
     private List<IView> ActionPickers { get; set; } = new();
     private ComboBox ActionDropDown { get; set; }
 
+    public Func<Picture, string, Picture>[] GenerateTransformationDelegates() =>
+        Children.OfType<ActionDefinition>()
+            .Select(definition => definition.GenerateDelegate())
+            .ToArray();
+
     public ActionPanel()
     {
         ActionDropDown = new();

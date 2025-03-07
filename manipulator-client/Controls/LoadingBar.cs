@@ -16,7 +16,7 @@ public class LoadingBar : HorizontalStackLayout
         get => Status.Text;
         set => Status.Text = value;
     }
-    private int TotalPoints { get; set; }
+    private long TotalPoints { get; set; }
 
     public float Percentage => 0; // TODO
 
@@ -53,7 +53,7 @@ public class LoadingBar : HorizontalStackLayout
         Add(Stack);
     }
 
-    public async Task<LoadingBar> Start(int targetPoints)
+    public async Task<LoadingBar> Start(long targetPoints)
     {
         await Gui.Update(() =>
         {
@@ -66,8 +66,8 @@ public class LoadingBar : HorizontalStackLayout
         return this;
     }
 
-    public async Task SetMesasge(string message) => await Gui.Update(() => Text = message);
-    public async Task ProgressTo(string message, int points)
+    public async Task SetMessage(string message) => await Gui.Update(() => Text = message);
+    public async Task ProgressTo(string message, long points)
     {
         float progress = points / (float)TotalPoints;
         await Gui.Update(async () =>
@@ -77,6 +77,22 @@ public class LoadingBar : HorizontalStackLayout
             await ProgressBar.ProgressTo(progress, ms, Easing.Linear);
             if (points == TotalPoints)
                 Stop();
+        });
+    }
+
+    /// <summary>
+    /// Adds a specified number of points to the loading bar, as opposed to progressing to a specific percentage.
+    /// </summary>
+    /// <param name="message">The message to update the ProgressBar with.</param>
+    /// <param name="pointsToAdd">The number of points to add to the bar.</param>
+    public async Task Progress(string message, long pointsToAdd)
+    {
+        await Gui.Update(async () =>
+        {
+            double next = Math.Min(1, ProgressBar.Progress + pointsToAdd / (float)TotalPoints);
+            uint ms = 250;
+            Text = message;
+            await ProgressBar.ProgressTo(next, ms, Easing.Linear);
         });
     }
 

@@ -9,6 +9,7 @@ public class BlurDefinition() : ActionDefinitionWithSlider("Blur", ActionDescrip
     public override string LoadingMessage => $"Blurring image with strength {Strength}...";
 
     public override Picture Process(Picture picture) => picture.Blur(Strength);
+    public override Func<Picture, string, Picture> GenerateDelegate() => (picture, _) => picture.Blur(Strength);
     public override object[] ConfigurableValues => [Strength];
     protected override void Deserialize(string[] values) => StrengthSlider.Value = int.Parse(values[0]);
 }

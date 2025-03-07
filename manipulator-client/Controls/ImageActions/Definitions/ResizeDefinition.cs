@@ -21,7 +21,8 @@ public class ResizeDefinition : ActionDefinition
     private void ValueChanged(object sender, EventArgs e) => EffectUpdated?.Invoke(this, EventArgs.Empty);
 
     public override string LoadingMessage => $"Resizing an image to {WidthEntry.Value}x{HeightEntry.Value}...";
-    public override Picture Process(Picture image) => image.Resize(WidthEntry.Value, HeightEntry.Value);
+    public override Picture Process(Picture picture) => picture.Resize(WidthEntry.Value, HeightEntry.Value);
+    public override Func<Picture, string, Picture> GenerateDelegate() => (picture, _) => picture.Resize(WidthEntry.Value, HeightEntry.Value);
     public override object[] ConfigurableValues => [WidthEntry.Value, HeightEntry.Value];
 
     protected override void Deserialize(string[] values)

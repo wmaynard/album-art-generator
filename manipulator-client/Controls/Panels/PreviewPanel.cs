@@ -92,7 +92,7 @@ public class PreviewPanel : Panel
                 for (int steps = 0; steps < args.Actions.Length; steps++)
                 {
                     ActionDefinition definition = args.Actions[steps];
-                    await LoadingBar.SetMesasge(definition.LoadingMessage);
+                    await LoadingBar.SetMessage(definition.LoadingMessage);
                     clone = definition is SuperimposeDefinition superimpose
                         ? superimpose.Process(clone, original)
                         : definition.Process(clone);

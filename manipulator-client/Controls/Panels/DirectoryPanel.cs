@@ -1,9 +1,13 @@
+using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using CommunityToolkit.Maui.Storage;
 using CommunityToolkit.Maui.Views;
 using Maynard.ImageManipulator.Client.Events;
 using Maynard.ImageManipulator.Client.Interfaces;
 using Maynard.ImageManipulator.Client.Utilities;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.PixelFormats;
 using Font = Microsoft.Maui.Graphics.Font;
 
 namespace Maynard.ImageManipulator.Client.Controls.Panels;
@@ -129,9 +133,83 @@ public class DirectoryPanel : Panel, IPreferential
         Load();
     }
 
-    private void RunTransformationButtonOnClicked(object sender, EventArgs e)
+    private CancellationTokenSource _processingCts = new();
+    private async void RunTransformationButtonOnClicked(object sender, EventArgs e)
     {
-        throw new NotImplementedException();
+        await _processingCts.CancelAsync();
+        _processingCts = new();
+        CancellationToken token = _processingCts.Token;
+        
+        await ProgressBar.Start(targetPoints: 2);
+        await ProgressBar.ProgressTo("Scanning for files...", points: 1);
+        List<FileInfo> files = (await ScanDirectories(CurrentDirectory, token))
+            .Select(path => new FileInfo(path))
+            .Where(info => !info.Name.StartsWith("processed-"))
+            .ToList();
+        long totalBytes = files.Sum(info => info.Length);
+        await ProgressBar.ProgressTo("Preparing tasks...", points: 2);
+        
+        Func<Picture, string, Picture>[] delegates = ActionPanel.Instance.GenerateTransformationDelegates();
+        ConcurrentQueue<Func<Task>> tasks = new();
+        ConcurrentQueue<long> totalProcessed = new();
+        string FormatBytes(long bytes) => $"{bytes / 1024f / 1024f:0.00} MB";
+        foreach (FileInfo info in files)
+            tasks.Enqueue(async () =>
+            {
+                try
+                {
+                    Picture picture = Picture.Load<Rgba32>(info.FullName);
+                    foreach (Func<Picture, string, Picture> action in delegates)
+                        picture = action(picture, info.FullName);
+
+                    string directory = OutputDirectory ?? info.Directory.FullName;
+                    string path = Path.Combine(directory, $"processed-{info.Name}");
+                    if (File.Exists(path))
+                        File.Delete(path);
+                    await picture.SaveAsync(path, new JpegEncoder(), token);
+                    long total = info.Length;
+                    while (totalProcessed.TryDequeue(out long processed))
+                        total += processed;
+                    totalProcessed.Enqueue(total);
+                    total = Math.Min(total, totalBytes);
+                    string message = $"{FormatBytes(total)} / {FormatBytes(totalBytes)} MB";
+                    await ProgressBar.Progress(message, info.Length);
+                }
+                catch (Exception exception)
+                {
+                    Log.Error($"Unable to process file {info.FullName}!");
+                }
+            });
+
+        await ProgressBar.Start(targetPoints: totalBytes);
+        await ProgressBar.SetMessage("Beginning processing tasks...");
+        const int WORKER_COUNT = 8;
+        SemaphoreSlim semaphore = new(WORKER_COUNT);
+        List<Task> runningTasks = new();
+        while (tasks.TryDequeue(out Func<Task> task))
+        {
+            await semaphore.WaitAsync(token);
+            runningTasks.Add(Task.Run(async () =>
+            {
+                try
+                {
+                    await task(); // Ensure action is awaited
+                }
+                catch (Exception e)
+                {
+                    Log.Error($"Task processing failed! ({e.Message})");
+                }
+                finally
+                {
+                    semaphore.Release();
+                }
+            }, token));
+        }
+
+        await Task.WhenAll(runningTasks);
+
+        await ProgressBar.ProgressTo("Processing complete!", totalBytes);
+        ProgressBar.Stop();
     }
 
     private CancellationTokenSource _cts = new();
