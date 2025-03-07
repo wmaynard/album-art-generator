@@ -12,10 +12,14 @@ public class ResizeDefinition : ActionDefinition
     {
         WidthEntry = new("Width", minimum: 100, maximum: 1920);
         HeightEntry = new("Height", minimum: 100, maximum: 1920);
+        WidthEntry.ValueChanged += ValueChanged;
         
         Stack.Add(WidthEntry);
         Stack.Add(HeightEntry);
     }
+
+    private void ValueChanged(object sender, EventArgs e) => EffectUpdated?.Invoke(this, EventArgs.Empty);
+
     public override string LoadingMessage => $"Resizing an image to {WidthEntry.Value}x{HeightEntry.Value}...";
     public override Picture Process(Picture image) => image.Resize(WidthEntry.Value, HeightEntry.Value);
     public override object[] ConfigurableValues => [WidthEntry.Value, HeightEntry.Value];

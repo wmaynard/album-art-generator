@@ -10,10 +10,11 @@ public class UpscaleDefinition : ActionDefinition
     public UpscaleDefinition() : base("Upscale", ActionDescriptions.UPSCALE)
     {
         Entry = new("Target Minimum Dimension (pixels)", 100, 1080);
+        Entry.ValueChanged += ValueChanged;
         
         Stack.Add(Entry);
     }
-
+    private void ValueChanged(object sender, EventArgs e) => EffectUpdated?.Invoke(this, EventArgs.Empty);
     public override string LoadingMessage => $"Upscaling an image to a minimum dimension of {Entry.Value} pixels...";
     public override Picture Process(Picture image) => image.Upscale(targetMinimum: Entry.Value);
     public override object[] ConfigurableValues => [Entry.Value];

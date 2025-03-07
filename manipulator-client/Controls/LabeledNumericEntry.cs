@@ -12,6 +12,7 @@ public partial class LabeledNumericEntry : Grid
     private Label RangeLabel { get; init; }
     private Entry Entry { get; init; }
     private string PreviousText { get; set; }
+    public EventHandler ValueChanged;
 
     public int Value
     {
@@ -21,6 +22,8 @@ public partial class LabeledNumericEntry : Grid
     
     public LabeledNumericEntry(string label, int minimum, int maximum)
     {
+        MinimumValue = minimum;
+        MaximumValue = maximum;
         if (minimum >= maximum)
             throw new Exception("Minimum value must be less than maximum value.");
         
@@ -36,32 +39,59 @@ public partial class LabeledNumericEntry : Grid
             HorizontalTextAlignment = TextAlignment.End
         };
         Entry = new() { Keyboard = Keyboard.Numeric, };
+        Entry.Text = MinimumValue.ToString();
         Entry.TextChanged += OnTextChanged;
+        // Entry.Unfocused += OnFocusLost;
         
         this.Add(Label, column: 0, row: 0);
         this.Add(Entry, column: 1, row: 0);
         this.Add(RangeLabel, column: 1, row: 1);
     }
 
-    private int Parse() => int.TryParse(IntegerRegex().Replace(Entry.Text, string.Empty), out int value)
+    private int Parse() => int.TryParse(IntegerRegex().Match(Entry.Text ?? "").Value, out int value)
         ? value
         : Math.Min(MaximumValue, Math.Max(MinimumValue, 0));
 
-    private void OnTextChanged(object sender, TextChangedEventArgs e)
+    private CancellationTokenSource _cts = new();
+    private async void OnTextChanged(object sender, EventArgs e)
     {
-        int value = Parse();
-
-        if (!value.ToString().Equals(Entry.Text) || value < MinimumValue || value > MaximumValue)
+        await _cts.CancelAsync();
+        _cts = new();
+        CancellationToken token = _cts.Token;
+        try
         {
-            Entry.TextChanged -= OnTextChanged;
-            Entry.Text = PreviousText;
-            Entry.TextChanged += OnTextChanged;
-            Log.Warn("Invalid entry.  Value must be numeric only.");
+            await Task.Run(async () =>
+            {
+                Thread.Sleep(2_500);
+                if (token.IsCancellationRequested)
+                    return;
+            
+                int value = Parse();
+
+                bool numeric = value.ToString().Equals(Entry.Text);
+                bool outOfRange = value < MinimumValue || value > MaximumValue;
+                if (!numeric || outOfRange)
+                {
+                    await Gui.Update(() =>
+                    {
+                        Entry.TextChanged -= OnTextChanged;
+                        Entry.Text = ((int)Math.Min(MaximumValue, Math.Max(MinimumValue, value))).ToString();
+                        Entry.TextChanged += OnTextChanged;
+                    });
+                    Log.Warn("Invalid entry.  Value must be numeric only.");
+                }
+                
+                if (PreviousText != Entry.Text)
+                    ValueChanged?.Invoke(this, EventArgs.Empty);
+                PreviousText = Entry.Text;
+            }, token);
         }
-        
-        PreviousText = Entry.Text;
+        catch (TaskCanceledException)
+        {
+            Log.Verbose("Numeric entry validation was cancelled.");
+        }
     }
 
-    [GeneratedRegex(@"^(?!-)\d+")]
+    [GeneratedRegex(@"\d+")]
     private static partial Regex IntegerRegex();
 }

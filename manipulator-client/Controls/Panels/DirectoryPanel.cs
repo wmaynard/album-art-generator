@@ -29,6 +29,8 @@ public class DirectoryPanel : Panel, IPreferential
     private Button ScanAgain { get; set; }
     private Button ClearOutput { get; set; }
     private Button SaveActionSetButton { get; set; }
+    private Button RunTransformationButton { get; set; }
+    private LoadingBar ProgressBar { get; set; }
     
     public DirectoryPanel()
     {
@@ -94,6 +96,14 @@ public class DirectoryPanel : Panel, IPreferential
             Text = "Save Current Transformation"
         };
         SaveActionSetButton.Clicked += SaveActionClicked;
+
+        RunTransformationButton = new()
+        {
+            Text = "Run Transformation Batch"
+        };
+        RunTransformationButton.Clicked += RunTransformationButtonOnClicked;
+        ProgressBar = new();
+        ProgressBar.IsVisible = false;
         
         ResultsGrid.Add(ScannedDirectoryTitle, column: 0, row: 0);
         ResultsGrid.Add(ScannedDirectoryCount, column: 1, row: 0);
@@ -114,7 +124,14 @@ public class DirectoryPanel : Panel, IPreferential
         Stack.Children.Add(OutputPicker);
         Stack.Children.Add(ClearOutput);
         Stack.Add(SaveActionSetButton);
+        Stack.Add(RunTransformationButton);
+        Stack.Add(ProgressBar);
         Load();
+    }
+
+    private void RunTransformationButtonOnClicked(object sender, EventArgs e)
+    {
+        throw new NotImplementedException();
     }
 
     private CancellationTokenSource _cts = new();
