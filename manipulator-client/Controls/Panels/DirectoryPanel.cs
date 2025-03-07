@@ -310,7 +310,7 @@ public class DirectoryPanel : Panel, IPreferential
     {
         try
         {
-            string[] extensions = [ ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".webm" ];
+            string[] extensions = [ ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".webp" ];
             List<string> images = Directory
                 .EnumerateFiles(path)
                 .Where(file => extensions.Contains(Path.GetExtension(file).ToLower()))

@@ -47,7 +47,7 @@ public class Art
 
     public static List<Art> Scan(string path)
     {
-        string[] extensions = [ ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".webm" ];
+        string[] extensions = [ ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".webp" ];
         List<Art> output = Directory
             .EnumerateFiles(path)
             .Where(file => extensions.Contains(Path.GetExtension(file).ToLower()))
