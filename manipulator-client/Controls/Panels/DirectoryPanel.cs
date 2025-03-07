@@ -158,6 +158,17 @@ public class DirectoryPanel : Panel, IPreferential
     }
     private async void OnDirectoryChanged(object _, DirectorySelectedEventArgs args)
     {
+        if (await Permissions.RequestAsync<Permissions.StorageRead>() != PermissionStatus.Granted)
+        {
+            Log.Error("Storage access denied. Cannot scan directories.");
+            return;
+        }
+        if (await Permissions.RequestAsync<Permissions.StorageWrite>() != PermissionStatus.Granted)
+        {
+            Log.Error("Storage access denied. Cannot scan directories.");
+            return;
+        }
+        
         await _cts.CancelAsync();
         _cts = new();
 
@@ -172,6 +183,10 @@ public class DirectoryPanel : Panel, IPreferential
         catch (OperationCanceledException)
         {
             Log.Info("Current directory changed; file scan restarted.");
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            Log.Error($"Unauthorized access to directory '{args.Path}'.  Grant access to this directory first.");
         }
         catch (Exception e)
         {
