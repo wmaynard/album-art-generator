@@ -153,6 +153,7 @@ public class DirectoryPanel : Panel, IPreferential
         ConcurrentQueue<Func<Task>> tasks = new();
         ConcurrentQueue<long> totalProcessed = new();
         string FormatBytes(long bytes) => $"{bytes / 1024f / 1024f:0.00} MB";
+
         foreach (FileInfo info in files)
             tasks.Enqueue(async () =>
             {
@@ -167,6 +168,7 @@ public class DirectoryPanel : Panel, IPreferential
                     if (File.Exists(path))
                         File.Delete(path);
                     await picture.SaveAsync(path, new JpegEncoder(), token);
+
                     long total = info.Length;
                     while (totalProcessed.TryDequeue(out long processed))
                         total += processed;
@@ -183,29 +185,30 @@ public class DirectoryPanel : Panel, IPreferential
 
         await ProgressBar.Start(targetPoints: totalBytes);
         await ProgressBar.SetMessage("Beginning processing tasks...");
+
         const int WORKER_COUNT = 8;
         SemaphoreSlim semaphore = new(WORKER_COUNT);
         List<Task> runningTasks = new();
+
         while (tasks.TryDequeue(out Func<Task> task))
         {
-            await semaphore.WaitAsync(token);
+            await semaphore.WaitAsync(token); // Wait for available slot
+
             runningTasks.Add(Task.Run(async () =>
             {
-                try
-                {
-                    await task(); // Ensure action is awaited
-                }
-                catch (Exception e)
-                {
-                    Log.Error($"Task processing failed! ({e.Message})");
-                }
-                finally
-                {
-                    semaphore.Release();
-                }
+                try                     { await task();                                         }
+                catch (Exception ex)    { Log.Error($"Task processing failed! ({ex.Message})"); }
+                finally                 { semaphore.Release();                                  }
             }, token));
+
+            if (runningTasks.Count < WORKER_COUNT)
+                continue;
+            
+            Task completedTask = await Task.WhenAny(runningTasks);
+            runningTasks.Remove(completedTask); // Remove completed tasks
         }
 
+        // Wait for all tasks to complete
         await Task.WhenAll(runningTasks);
 
         await ProgressBar.ProgressTo("Processing complete!", totalBytes);
