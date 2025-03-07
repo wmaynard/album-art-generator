@@ -134,7 +134,6 @@ public class ComboBox : VerticalStackLayout, IPreferential
     public async void Load() => Load(null);
     public async void Load(string fromTransformation)
     {
-        return;
         string data = fromTransformation ?? Preferences.Get(Id, null);
         if (string.IsNullOrWhiteSpace(data))
         {
