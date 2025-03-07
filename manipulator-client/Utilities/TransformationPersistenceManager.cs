@@ -1,6 +1,8 @@
 using System.Text.RegularExpressions;
 using Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions;
 using Maynard.ImageManipulator.Client.Controls.Panels;
+using Maynard.ImageManipulator.Client.Data;
+using Maynard.ImageManipulator.Client.Pages;
 
 namespace Maynard.ImageManipulator.Client.Utilities;
 
@@ -67,7 +69,7 @@ public static partial class TransformationPersistenceManager
             Preferences.Set(key, $"{description}{SEPARATOR}{transformation}");
     }
 
-    public static string Load(string key)
+    public async static Task<string> Load(string key)
     {
         if (!Preferences.ContainsKey(key))
             return null;
@@ -75,21 +77,26 @@ public static partial class TransformationPersistenceManager
         if (string.IsNullOrWhiteSpace(serialized))
             return null;
         string transformation = serialized[(serialized.IndexOf(SEPARATOR) + 1)..];
+
+        
+        // IView page = ActionPanel.Instance;
+        // while (page != null && page is not ContentPage)
+        //     page = (IView)page.Parent;
+        //
+        // if (page == null || page is not ContentPage target)
+        // {
+        //     Log.Error("Unable to navigate to transformation page");
+        //     return transformation;
+        // }
+
+        await Gui.Update(async() => await Shell.Current.GoToAsync(new (nameof(TransformationPage)), true));
         ActionPanel.Instance.Load(transformation);
-        ActionPanel.Instance.Focus();
+        
         return transformation;
     }
-
  
     [GeneratedRegex(@"\d+$")]
     private static partial Regex IntegerRegex();
 }
 
-public class CustomTransformationData
-{
-    public bool IsBuiltIn => Index < TransformationPersistenceManager.CUSTOM_START;
-    public string Key { get; init; }
-    public int Index { get; init; }
-    public string Description { get; init; }
-    public string[] Actions { get; set; }
-}
+

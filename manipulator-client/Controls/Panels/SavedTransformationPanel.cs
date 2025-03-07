@@ -38,14 +38,14 @@ public class SavedTransformationPanel : Panel
 
     public SavedTransformationPanel()
     {
-        string data =
-            "foobar\uf8ffMaynard.ImageManipulator.Client.Controls.ImageActions.Definitions.BlurDefinition\u231810\u2318\u2325Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions.CropToSquareDefinition\u2318\u2325Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions.RadialDimDefinition\u23181\u2318";
-        
-        for (int i = 0; i < 100; i++)
-            if (Preferences.ContainsKey($"CustomTransformation1{i:00}"))
-                Preferences.Remove($"CustomTransformation1{i:00}");
-        for (int i = 0; i < 9; i++)
-            Preferences.Set($"CustomTransformation10{i}", data.Replace("foobar", $"Xform {i}"));
+        // string data =
+        //     "foobar\uf8ffMaynard.ImageManipulator.Client.Controls.ImageActions.Definitions.BlurDefinition\u231810\u2318\u2325Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions.CropToSquareDefinition\u2318\u2325Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions.RadialDimDefinition\u23181\u2318";
+        //
+        // for (int i = 0; i < 100; i++)
+        //     if (Preferences.ContainsKey($"CustomTransformation1{i:00}"))
+        //         Preferences.Remove($"CustomTransformation1{i:00}");
+        // for (int i = 0; i < 9; i++)
+        //     Preferences.Set($"CustomTransformation10{i}", data.Replace("foobar", $"Xform {i}"));
         
         Grid = new()
         {
@@ -97,70 +97,5 @@ public class SavedTransformationPanel : Panel
         return;
         if (bindable is not SavedTransformationPanel panel)
             return;
-    }
-}
-
-public class SavedTransformation : Panel
-{
-    private CustomTransformationData Data { get; set; }
-    private Label DescriptionLabel { get; set; }
-    private Label DetailsLabel { get; set; }
-    private Button DeleteButton { get; set; }
-    private Button OpenButton { get; set; }
-    
-    public SavedTransformation(CustomTransformationData data)
-    {
-        Data = data;
-        Border.Stroke = Data.IsBuiltIn
-            ? WdmBrushes.SALMON
-            : WdmBrushes.YELLOW;
-        Title = Data.Description;
-        DescriptionLabel = new() { Text = "Steps" };
-        DetailsLabel = new() { Text = string.Join(Environment.NewLine, Data.Actions) };
-        DeleteButton = new() { Text = "X" };
-        OpenButton = new() { Text = "Open" };
-
-        DeleteButton.Clicked += DeleteButtonClicked;
-        OpenButton.Clicked += OpenClicked;
-
-        Grid grid = new()
-        {
-            ColumnDefinitions =
-            {
-                new() { Width = new(3, GridUnitType.Star) },
-                new() { Width = new(7, GridUnitType.Star) },
-            }
-        };
-        grid.Add(DeleteButton, column: 0, row: 0);
-        grid.Add(OpenButton, column: 1, row: 0);
-        grid.Add(DescriptionLabel, column: 0, row: 1);
-        grid.Add(DetailsLabel, column: 1, row: 1);
-        Stack.Add(grid);
-    }
-
-    private async void DeleteButtonClicked(object sender, EventArgs e)
-    {
-        Grid parent = (Grid)Parent;
-        
-        await Tween.Linear(this, panel => panel.Opacity, start: 1, end: 0, seconds: .25);
-        parent.Children.Remove(this);
-        CustomTransformationData[] before = TransformationPersistenceManager.List();
-        TransformationPersistenceManager.Delete(Data.Key);
-        CustomTransformationData[] after = TransformationPersistenceManager.List();
-
-        IView view = (IView)parent.Parent;
-        while (view.Parent != null && view is not SavedTransformationPanel)
-            view = (IView)view.Parent;
-        if (view == null)
-            return;
-        await Tween.Linear(parent, grid => grid.Opacity, start: 1, end: 0, seconds: .25);
-        ((SavedTransformationPanel)view).Populate();
-        await Tween.Linear(parent, grid => grid.Opacity, start: 0, end: 1, seconds: .25);
-    }
-    
-
-    private void OpenClicked(object sender, EventArgs e)
-    {
-        TransformationPersistenceManager.Load(Data.Key);
     }
 }

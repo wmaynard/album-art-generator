@@ -9,14 +9,14 @@
     Title="manipulator_client">
     
     <ShellContent
-        Title="Open"
-        ContentTemplate="{DataTemplate pages:LoadPage}"
-        Route="MainPage" />
-    
-    <ShellContent
         Title="Transformations"
         ContentTemplate="{DataTemplate pages:TransformationPage}"
-        Route="NewPage" />
+        Route="TransformationPage" />
+    
+    <ShellContent
+        Title="Open"
+        ContentTemplate="{DataTemplate pages:LoadPage}"
+        Route="LoadPage" />
     
     <ShellContent
         Title="Help"
