@@ -8,10 +8,16 @@ public class SuperimposeDefinition() : ActionDefinition("Superimpose Original", 
 {
     public override string LoadingMessage => "Superimposing original image...";
     public override Picture Process(Picture image) => throw new NotImplementedException();
-    public Picture Process(Picture picture, Picture other) => picture.Superimpose(other);
+
+    public Picture Process(Picture picture, Picture other)
+    {
+        other = other.ScaleToDimension(picture.MaximumDimension());
+        return picture.Superimpose(other);
+    }
     public override Func<Picture, string, Picture> GenerateDelegate() => (picture, filename) =>
     {
         Picture original = SixLabors.ImageSharp.Image.Load<Rgba32>(filename);
+        original = original.ScaleToDimension(picture.MaximumDimension());
         return picture.Superimpose(original);
     };
     public override object[] ConfigurableValues => null;

@@ -77,17 +77,7 @@ public static partial class TransformationPersistenceManager
         if (string.IsNullOrWhiteSpace(serialized))
             return null;
         string transformation = serialized[(serialized.IndexOf(SEPARATOR) + 1)..];
-
         
-        // IView page = ActionPanel.Instance;
-        // while (page != null && page is not ContentPage)
-        //     page = (IView)page.Parent;
-        //
-        // if (page == null || page is not ContentPage target)
-        // {
-        //     Log.Error("Unable to navigate to transformation page");
-        //     return transformation;
-        // }
 
         await Gui.Update(async() => await Shell.Current.GoToAsync(new (nameof(TransformationPage)), true));
         ActionPanel.Instance.Load(transformation);

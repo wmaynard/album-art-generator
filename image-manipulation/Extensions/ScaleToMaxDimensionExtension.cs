@@ -34,4 +34,3 @@ public static class ScaleToMaxDimensionExtension
     public static Image<Rgba32> ScaleToMaxDimension(this Image<Rgba32> self, out Image<Rgba32> scaled)
         => scaled = self.Clone().ScaleToMaxDimension();
 }
-

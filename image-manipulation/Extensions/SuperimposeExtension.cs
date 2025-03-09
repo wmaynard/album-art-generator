@@ -14,8 +14,8 @@ public static class SuperimposeExtension
     /// <returns>The combined image for chaining.</returns>
     public static Image<Rgba32> Superimpose(this Image<Rgba32> self, Image<Rgba32> other)
     {
-        // if (other.Width > self.Width || other.Height > self.Height)
-        //     throw new("Superimpose requires the background image to be at least the same size in both dimensions to work.");
+        if (other.Width > self.Width || other.Height > self.Height)
+            throw new("Superimpose requires the background image to be at least the same size in both dimensions to work.");
         
         if (other.Width == self.Width && other.Height == self.Height)
         {
@@ -23,9 +23,6 @@ public static class SuperimposeExtension
             self = other.Clone();
             return self;
         }
-        // Guarantee the original image reaches the edge of one dimension
-        if (!(other.Width == self.Width || other.Height == self.Height))
-            other = other.Upscale(Math.Min(self.Width, self.Height));
 
         Queue<Rgba32> data = other.Enqueue();
         self.ProcessPixelRows(image =>

@@ -153,8 +153,6 @@ public class ComboBox : VerticalStackLayout, IPreferential
                 Actions[i].EffectUpdated += FireEventUpdated;
                 await InsertChildAt(Actions[i], i);
             }
-
-            Save();
         }
         catch (Exception e)
         {
