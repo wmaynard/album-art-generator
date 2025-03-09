@@ -143,7 +143,8 @@ public class ComboBox : VerticalStackLayout, IPreferential
 
         try
         {
-            foreach (ActionDefinition definition in Children.OfType<ActionDefinition>())
+            ActionDefinition[] toRemove = Children.OfType<ActionDefinition>().ToArray();
+            foreach (ActionDefinition definition in toRemove)
                 Children.Remove(definition);
             Actions = ActionDefinition.Deserialize(data).ToList();
             for (int i = 0; i < Actions.Count; i++)
