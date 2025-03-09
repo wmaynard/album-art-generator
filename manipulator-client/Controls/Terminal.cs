@@ -37,8 +37,6 @@ public class Terminal : ContentView
     {
         await Gui.Update(async () =>
         {
-            Editor.Text += $"{log.Message}{Environment.NewLine}";
-
             switch (log.Severity)
             {
                 case Log.Severity.Warn:
@@ -51,10 +49,14 @@ public class Terminal : ContentView
                     await TemporarilyChangeColor(WdmColors.RED, WdmColors.BLACK, seconds: 60);
                     break;
                 case Log.Severity.Verbose:
+                    return;
                 case Log.Severity.Info:
                 default:
                     break;
             }
+            
+            Editor.Text += $"{log.Message}{Environment.NewLine}";
+
             // Fix sourced from: https://stackoverflow.com/questions/78298939/net-maui-editor-does-not-scroll-to-new-line-when-text-is-added-programattically
             UIKit.UITextView tv = (UIKit.UITextView)Editor.Handler?.PlatformView;
             if (tv == null)

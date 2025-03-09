@@ -128,7 +128,7 @@ public class ComboBox : VerticalStackLayout, IPreferential
     public void Save()
     {
         Preferences.Set(Id, ActionDefinition.Serialize(Actions.ToArray()));
-        Log.Info("Current transformation saved.");
+        Log.Verbose("Current transformation saved.");
     }
 
     public async void Load() => Load(null);

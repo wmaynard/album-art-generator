@@ -4,8 +4,11 @@ using CommunityToolkit.Maui.Storage;
 using CommunityToolkit.Maui.Views;
 using Maynard.ImageManipulator.Client.Events;
 using Maynard.ImageManipulator.Client.Interfaces;
+using Maynard.ImageManipulator.Client.Samples;
 using Maynard.ImageManipulator.Client.Utilities;
+using Maynard.Imaging.Extensions;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.PixelFormats;
 using Font = Microsoft.Maui.Graphics.Font;
@@ -133,6 +136,19 @@ public class DirectoryPanel : Panel, IPreferential
         Load();
     }
 
+    private async Task<T> RunWithTimeout<T>(Func<T> function, string message, int seconds = 30)
+    {
+        using CancellationTokenSource cts = new(TimeSpan.FromSeconds(seconds));
+
+        Task<T> result = Task.Run(function, cts.Token);
+
+        Task completed = await Task.WhenAny(result, Task.Delay(TimeSpan.FromSeconds(seconds), cts.Token));
+
+        return completed == result
+            ? await result
+            : throw new TimeoutException($"Operation timed out: {message}.  Time allowed: {seconds}s");
+    }
+
     private CancellationTokenSource _processingCts = new();
     private async void RunTransformationButtonOnClicked(object sender, EventArgs e)
     {
@@ -154,65 +170,88 @@ public class DirectoryPanel : Panel, IPreferential
         ConcurrentQueue<long> totalProcessed = new();
         string FormatBytes(long bytes) => $"{bytes / 1024f / 1024f:0.00} MB";
 
+        JpegEncoder encoder = new();
         foreach (FileInfo info in files)
             tasks.Enqueue(async () =>
             {
                 try
                 {
-                    Picture picture = Picture.Load<Rgba32>(info.FullName);
-                    foreach (Func<Picture, string, Picture> action in delegates)
-                        picture = action(picture, info.FullName);
+                    Picture picture = await RunWithTimeout
+                    (
+                        function: () => Picture.Load<Rgba32>(info.FullName), 
+                        message: "Loading image",
+                        seconds: 300
+                    );
+
+                    foreach (Func<Picture, string, Picture> func in delegates)
+                        picture = await RunWithTimeout
+                        (
+                            function: () => func(picture, info.FullName), 
+                            message: "Processing step of an image",
+                            seconds: 300
+                        );
 
                     string directory = OutputDirectory ?? info.Directory.FullName;
-                    string path = Path.Combine(directory, $"processed-{info.Name}");
-                    if (File.Exists(path))
-                        File.Delete(path);
-                    await picture.SaveAsync(path, new JpegEncoder(), token);
-
-                    long total = info.Length;
-                    while (totalProcessed.TryDequeue(out long processed))
-                        total += processed;
-                    totalProcessed.Enqueue(total);
-                    total = Math.Min(total, totalBytes);
-                    string message = $"{FormatBytes(total)} / {FormatBytes(totalBytes)} MB";
-                    await ProgressBar.Progress(message, info.Length);
+                    string path = Path.Combine(directory, $"processed-{Path.GetFileNameWithoutExtension(info.Name)}.jpg");
+                    
+                    await RunWithTimeout
+                    (
+                        function: async () =>
+                        {
+                            if (File.Exists(path))
+                                File.Delete(path);
+                            await picture.SaveAsync(path, encoder, token);
+                        },
+                        message: "Saving processed image", 
+                        seconds: 30
+                    );
                 }
                 catch (Exception exception)
                 {
-                    Log.Error($"Unable to process file {info.FullName}!");
+                    Log.Error($"Unable to process file {info.FullName}!  ({exception.Message})");
                 }
+                
+                // Update the progress bar.
+                long total = info.Length;
+                while (totalProcessed.TryDequeue(out long processed))
+                    total += processed;
+                totalProcessed.Enqueue(total);
+                total = Math.Min(total, totalBytes);
+                string message = $"{FormatBytes(total)} / {FormatBytes(totalBytes)}";
+                await ProgressBar.Progress(message, info.Length);
             });
 
         await ProgressBar.Start(targetPoints: totalBytes);
         await ProgressBar.SetMessage("Beginning processing tasks...");
 
-        const int WORKER_COUNT = 8;
+        const int WORKER_COUNT = 4;
         SemaphoreSlim semaphore = new(WORKER_COUNT);
         List<Task> runningTasks = new();
-
+        
         while (tasks.TryDequeue(out Func<Task> task))
         {
             await semaphore.WaitAsync(token); // Wait for available slot
-
+        
             runningTasks.Add(Task.Run(async () =>
             {
                 try                     { await task();                                         }
                 catch (Exception ex)    { Log.Error($"Task processing failed! ({ex.Message})"); }
                 finally                 { semaphore.Release();                                  }
             }, token));
-
+        
             if (runningTasks.Count < WORKER_COUNT)
                 continue;
             
             Task completedTask = await Task.WhenAny(runningTasks);
             runningTasks.Remove(completedTask); // Remove completed tasks
         }
-
+        
         // Wait for all tasks to complete
         await Task.WhenAll(runningTasks);
 
         await ProgressBar.ProgressTo("Processing complete!", totalBytes);
         ProgressBar.Stop();
+        Log.Info("Done!");
     }
 
     private CancellationTokenSource _cts = new();

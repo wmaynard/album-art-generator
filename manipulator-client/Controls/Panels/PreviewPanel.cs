@@ -49,7 +49,7 @@ public class PreviewPanel : Panel
             Spacing = 10,
             HorizontalOptions = LayoutOptions.Fill,
         };
-        LoadingBar.OnComplete += (_, _) => Log.Info("Processed image preview updated!");
+        LoadingBar.OnComplete += (_, _) => Log.Verbose("Processed image preview updated!");
         
         Grid.Add(Original, column: 0, row: 0);
         Grid.Add(Processed, column: 0, row: 1);
@@ -81,7 +81,7 @@ public class PreviewPanel : Panel
                 await Task.Delay(1_000, token);
                 await LoadingBar.ProgressTo("Waiting on further user input....", 5);
                 await Task.Delay(1_000, token);
-                Log.Info("Starting update task");
+                // Log.Info("Starting update task");
 
                 await LoadingBar.Start(args.Actions.Length);
                 byte[] imageBytes = Convert.FromBase64String(Mandrill.BASE_64);
@@ -106,7 +106,7 @@ public class PreviewPanel : Panel
         }
         catch (TaskCanceledException)
         {
-            Log.Info("Update task was cancelled.");
+            // Log.Info("Update task was cancelled.");
             await LoadingBar.MarkComplete("Canceled; more changes detected.");
         }
         catch (Exception e)

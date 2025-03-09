@@ -112,22 +112,6 @@ public static class Log
                     sb.Append(word);
                 }
         }
-        
-        // Console.ForegroundColor = severity switch
-        // {
-        //     Severity.Verbose => ConsoleColor.Gray,
-        //     Severity.Info => ConsoleColor.White,
-        //     Severity.Warn => ConsoleColor.Yellow,
-        //     Severity.Error => ConsoleColor.Red,
-        //     Severity.Critical => ConsoleColor.DarkRed,
-        //     _ => ConsoleColor.Gray,
-        // };
-        // Console.ForegroundColor = severity switch
-        // {
-        //     Severity.Critical => ConsoleColor.Gray,
-        //     _ => ConsoleColor.Black
-        // };
-        // Console.WriteLine(sb.ToString());
         _timestamps[eventId] = TimestampMs.Now;
         _handler?.Invoke(null, new() { Message = sb.ToString(), Severity = severity});
         return eventId;

@@ -3,7 +3,7 @@ using Maynard.Imaging.Extensions;
 
 namespace Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions;
 
-public class RadialDimDefinition() : ActionDefinitionWithSlider("Dim Edges", ActionDescriptions.DIM, minimum: 1, maximum: 20)
+public class RadialDimDefinition() : ActionDefinitionWithSlider("Dim Edges", ActionDescriptions.DIM, minimum: 1, maximum: 200)
 {
     public override string LoadingMessage => $"Dimming edges with strength {Strength}...";
 
