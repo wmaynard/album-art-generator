@@ -73,8 +73,8 @@ public class SavedTransformationPanel : Panel
             Grid.Add(transformations[i], column: 0);
         
         int index = 0;
-        for (int column = 0; column < Columns; column++)
-            for (int row = 0; row < rows; row++)
+        for (int row = 0; row < rows; row++)
+            for (int column = 0; column < Columns; column++)
                 if (index < transformations.Length)
                     Grid.Add(transformations[index++], column: column, row: row);
                 else

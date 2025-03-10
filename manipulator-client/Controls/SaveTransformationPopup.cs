@@ -35,6 +35,11 @@ public class SaveTransformationPopup : Popup
         string description = string.IsNullOrWhiteSpace(Entry.Text)
             ? "Unnamed Transformation"
             : Entry.Text;
+        if (string.IsNullOrWhiteSpace(description))
+        {
+            Log.Info("Unable to save current transformation; the popup was canceled or an empty value entered.");
+            return;
+        }
         TransformationPersistenceManager.Save(description);
         Log.Info($"Saved transformation: {description}");
         Close(Entry.Text);

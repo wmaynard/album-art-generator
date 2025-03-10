@@ -267,13 +267,7 @@ public class DirectoryPanel : Panel, IPreferential
             return;
         }
         
-        string description = (string)await ((Page)view).ShowPopupAsync(new SaveTransformationPopup());
-        if (string.IsNullOrWhiteSpace(description))
-        {
-            Log.Info("Unable to save current transformation; the popup was canceled or an empty value entered.");
-            return;
-        }
-        TransformationPersistenceManager.Save(description);
+        await ((Page)view).ShowPopupAsync(new SaveTransformationPopup());
     }
     private void OnScanAgainClicked(object sender, EventArgs __)
     {

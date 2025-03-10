@@ -35,7 +35,9 @@ public static partial class TransformationPersistenceManager
         List<CustomTransformationData> output = new();
         output.AddRange(Scan(BUILT_IN_START));
         output.AddRange(Scan(CUSTOM_START));
-        return output.ToArray();
+        return output
+            .OrderBy(data => data.Description.ToLower())
+            .ToArray();
     }
 
     private static CustomTransformationData[] Scan(int start)
@@ -63,10 +65,26 @@ public static partial class TransformationPersistenceManager
     
     public static void Save(string description)
     {
-        string key = GenerateKey(GetNextKey());
+        CustomTransformationData[] list = List();
+        CustomTransformationData existing = list
+            .FirstOrDefault(data => data.Description.ToLowerInvariant().Equals(description.ToLowerInvariant()));
+
+        bool exists = existing != null;
+        string key = existing != null
+            ? existing.Key
+            : GenerateKey(GetNextKey());
+        
         string transformation = ActionPanel.Instance.TransformationString;
-        if (!string.IsNullOrWhiteSpace(transformation))
-            Preferences.Set(key, $"{description}{SEPARATOR}{transformation}");
+        if (string.IsNullOrWhiteSpace(transformation) && exists)
+        {
+            Log.Warn("Saving a transformation with no actions resulted in deleting a custom transformation.");
+            Delete(key);
+            return;
+        }
+        else if (exists)
+            Log.Info($"Overwriting previous transformation '{description}'...");
+        
+        Preferences.Set(key, $"{description}{SEPARATOR}{transformation}");
     }
 
     public async static Task<string> Load(string key)

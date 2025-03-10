@@ -109,10 +109,10 @@ public abstract class ActionDefinition : Panel
         string[] definitionStrings = data.Split(CLASS_SEPARATOR);
         foreach (string definitionString in definitionStrings)
         {
-            string[] parts = definitionString.Split(CLASS_SEPARATOR);
+            string[] parts = definitionString.Split(SEPARATOR);
             string name = parts.First();
             name = name[(name.LastIndexOf('.') + 1)..];
-            string[] parameters = parts.Skip(1).ToArray();
+            string[] parameters = parts.Skip(1).Where(str => !string.IsNullOrWhiteSpace(str)).ToArray();
             output.Add($"{name}({string.Join(", ", parameters)})");
         }
 
