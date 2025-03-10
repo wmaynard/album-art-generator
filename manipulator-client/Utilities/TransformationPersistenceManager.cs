@@ -97,8 +97,9 @@ public static partial class TransformationPersistenceManager
         string transformation = serialized[(serialized.IndexOf(SEPARATOR) + 1)..];
         
 
+        Preferences.Set(PreferenceKeys.ACTIONS, transformation);
         await Gui.Update(async() => await Shell.Current.GoToAsync(new (nameof(TransformationPage)), true));
-        ActionPanel.Instance.Load(transformation);
+        // ActionPanel.Instance.Load(transformation);
         
         return transformation;
     }

@@ -49,10 +49,13 @@ internal static class Log
     {
         if (INITIALIZED)
             return true;
-
-        Console.SetError(new FilteringTextWriter(Console.Error));
-        Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.WriteLine(HEADERS);
+        try
+        {
+            Console.SetError(new FilteringTextWriter(Console.Error));
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine(HEADERS);
+        }
+        catch { }
         return true;
     }
 
@@ -107,22 +110,26 @@ internal static class Log
                     sb.Append(word);
                 }
         }
-        
-        Console.ForegroundColor = severity switch
+
+        try
         {
-            Severity.Verbose => ConsoleColor.Gray,
-            Severity.Info => ConsoleColor.White,
-            Severity.Warn => ConsoleColor.Yellow,
-            Severity.Error => ConsoleColor.Red,
-            Severity.Critical => ConsoleColor.DarkRed,
-            _ => ConsoleColor.Gray,
-        };
-        Console.ForegroundColor = severity switch
-        {
-            Severity.Critical => ConsoleColor.Gray,
-            _ => ConsoleColor.Black
-        };
-        Console.WriteLine(sb.ToString());
+            Console.ForegroundColor = severity switch
+            {
+                Severity.Verbose => ConsoleColor.Gray,
+                Severity.Info => ConsoleColor.White,
+                Severity.Warn => ConsoleColor.Yellow,
+                Severity.Error => ConsoleColor.Red,
+                Severity.Critical => ConsoleColor.DarkRed,
+                _ => ConsoleColor.Gray,
+            };
+            Console.ForegroundColor = severity switch
+            {
+                Severity.Critical => ConsoleColor.Gray,
+                _ => ConsoleColor.Black
+            };
+            Console.WriteLine(sb.ToString());
+        }
+        catch { }
         _timestamps[eventId] = TimestampMs.Now;
         _handler?.Invoke(null, new() { Message = message, Severity = severity});
         return eventId;

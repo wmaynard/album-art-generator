@@ -56,7 +56,11 @@ public class ComboBox : VerticalStackLayout, IPreferential
     private async Task InsertChildAt(IView view, int? index = null)
     {
         if (Children.Contains(view))
+        {
+            Log.Info("Removing child to be re-added");
             Children.Remove(view);
+        }
+
         index ??= Children.IndexOf(NewActionButton);
         if (view is VisualElement visual)
         {
@@ -120,7 +124,14 @@ public class ComboBox : VerticalStackLayout, IPreferential
         Updated?.Invoke(sender ?? this, new(Actions.ToArray()));
         Save();
     }
-    private void OnClick_NewAction(object sender, EventArgs e) => NestedStack.Show();
+
+    private void OnClick_NewAction(object sender, EventArgs e)
+    {
+        if (NestedStack.IsVisible)
+            NestedStack.Hide();
+        else
+            NestedStack.Show();
+    }
     public string Id { get; init; } = PreferenceKeys.ACTIONS;
     public void Reset() => Load();
     public string TransformationString => ActionDefinition.Serialize(Actions.ToArray());
@@ -132,8 +143,32 @@ public class ComboBox : VerticalStackLayout, IPreferential
     }
 
     public async void Load() => Load(null);
+
+    private async Task Populate(List<ActionDefinition> actions)
+    {
+        await Gui.Update(async () =>
+        {
+            ActionDefinition[] toRemove = Children.OfType<ActionDefinition>().ToArray();
+            foreach (ActionDefinition definition in toRemove)
+                Children.Remove(definition);
+
+            Log.Info($"Loading {actions.Count} actions");
+            for (int i = 0; i < actions.Count; i++)
+            {
+                Log.Info($"Loading action {i + 1} of {actions.Count}");
+                actions[i].ButtonClicked += DefinitionButtonClicked;
+                actions[i].EffectUpdated += FireEventUpdated;
+                await InsertChildAt(actions[i], i);
+            }
+
+            Actions = actions;
+
+            Log.Info($"Children that are actions: {Children.OfType<ActionDefinition>().Count()}");
+        });
+    }
     public async void Load(string fromTransformation)
     {
+        Log.Info("Call to Load()");
         string data = fromTransformation ?? Preferences.Get(Id, null);
         if (string.IsNullOrWhiteSpace(data))
         {
@@ -143,16 +178,8 @@ public class ComboBox : VerticalStackLayout, IPreferential
 
         try
         {
-            ActionDefinition[] toRemove = Children.OfType<ActionDefinition>().ToArray();
-            foreach (ActionDefinition definition in toRemove)
-                Children.Remove(definition);
-            Actions = ActionDefinition.Deserialize(data).ToList();
-            for (int i = 0; i < Actions.Count; i++)
-            {
-                Actions[i].ButtonClicked += DefinitionButtonClicked;
-                Actions[i].EffectUpdated += FireEventUpdated;
-                await InsertChildAt(Actions[i], i);
-            }
+            List<ActionDefinition> toAdd = ActionDefinition.Deserialize(data).ToList();
+            await Populate(toAdd);
         }
         catch (Exception e)
         {
