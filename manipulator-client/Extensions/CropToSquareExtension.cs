@@ -1,9 +1,9 @@
-using Maynard.Imaging.Utilities;
+using Maynard.ImageManipulator.Client.Utilities;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 
-namespace Maynard.Imaging.Extensions;
+namespace Maynard.ImageManipulator.Client.Extensions;
 
 public static class CropToSquareExtension
 {

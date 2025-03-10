@@ -1,7 +1,6 @@
-using System.Text;
 using SixLabors.ImageSharp.PixelFormats;
 
-namespace Maynard.Imaging.Models;
+namespace Maynard.ImageManipulator.Client.Utilities;
 
 public class AveragingWindow
 {

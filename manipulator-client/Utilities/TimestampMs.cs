@@ -1,4 +1,4 @@
-namespace Maynard.Imaging.Utilities;
+namespace Maynard.ImageManipulator.Client.Utilities;
 
 public static class TimestampMs
 {

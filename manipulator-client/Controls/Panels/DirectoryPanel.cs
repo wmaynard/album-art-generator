@@ -6,7 +6,6 @@ using Maynard.ImageManipulator.Client.Events;
 using Maynard.ImageManipulator.Client.Interfaces;
 using Maynard.ImageManipulator.Client.Samples;
 using Maynard.ImageManipulator.Client.Utilities;
-using Maynard.Imaging.Extensions;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.Formats.Jpeg;

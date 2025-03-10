@@ -1,5 +1,5 @@
+using Maynard.ImageManipulator.Client.Extensions;
 using Maynard.ImageManipulator.Client.Utilities;
-using Maynard.Imaging.Extensions;
 using SixLabors.ImageSharp.PixelFormats;
 
 namespace Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions;

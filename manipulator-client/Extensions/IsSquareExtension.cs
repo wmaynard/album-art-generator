@@ -1,7 +1,7 @@
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
-namespace Maynard.Imaging.Extensions;
+namespace Maynard.ImageManipulator.Client.Extensions;
 
 internal static class IsSquareExtension
 {

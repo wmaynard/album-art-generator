@@ -1,8 +1,8 @@
 using System.Reflection;
 using System.Text.RegularExpressions;
-using Maynard.Imaging.Extensions;
+using Maynard.ImageManipulator.Client.Extensions;
 
-namespace Maynard.Imaging.Utilities;
+namespace Maynard.ImageManipulator.Client.Utilities;
 
 public static partial class ReflectionHelper
 {

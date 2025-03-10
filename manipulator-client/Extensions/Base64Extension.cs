@@ -3,7 +3,7 @@ using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.PixelFormats;
 
-namespace Maynard.Imaging.Extensions;
+namespace Maynard.ImageManipulator.Client.Extensions;
 
 public static class Base64Extension
 {

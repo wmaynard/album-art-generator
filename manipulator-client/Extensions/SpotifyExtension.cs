@@ -1,8 +1,7 @@
-using Maynard.Imaging.Utilities;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
-namespace Maynard.Imaging.Extensions;
+namespace Maynard.ImageManipulator.Client.Extensions;
 
 public static class SpotifyExtension
 {

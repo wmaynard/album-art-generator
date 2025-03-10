@@ -64,6 +64,7 @@
         <PackageReference Include="CommunityToolkit.Maui" Version="9.1.1" />
         <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)"/>
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0"/>
+        <PackageReference Include="SixLabors.ImageSharp" Version="3.1.7" />
     </ItemGroup>
 
     <ItemGroup>
@@ -73,10 +74,6 @@
       <None Update="Samples\mandrill-processed.jpg">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\image-manipulation\image-manipulation.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
+using Maynard.ImageManipulator.Client.Extensions;
 using Maynard.ImageManipulator.Client.Utilities;
-using Maynard.Imaging.Extensions;
 
 namespace Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions;
 

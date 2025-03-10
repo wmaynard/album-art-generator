@@ -1,9 +1,9 @@
 global using Picture = SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32>;
 using System.IO;
 using Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions;
+using Maynard.ImageManipulator.Client.Extensions;
 using Maynard.ImageManipulator.Client.Samples;
 using Maynard.ImageManipulator.Client.Utilities;
-using Maynard.Imaging.Extensions;
 using SixLabors.ImageSharp.PixelFormats;
 
 namespace Maynard.ImageManipulator.Client.Controls.Panels;
