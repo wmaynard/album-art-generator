@@ -7,7 +7,7 @@ namespace Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions;
 public class UpscaleDefinition : ActionDefinition
 {
     private LabeledNumericEntry Entry { get; set; } 
-    public UpscaleDefinition() : base("Scale", ActionDescriptions.UPSCALE)
+    public UpscaleDefinition() : base("Scale", ActionDescriptions.SCALE_MIN_TO)
     {
         Entry = new("Target Minimum Dimension (pixels)", 100, 1080);
         Entry.ValueChanged += ValueChanged;

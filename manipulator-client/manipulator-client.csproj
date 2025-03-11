@@ -58,6 +58,38 @@
 
         <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
         <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)"/>
+        <None Remove="Resources\Images\Help\blur.jpg" />
+        <MauiImage Include="Resources\Images\Help\blur.jpg">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </MauiImage>
+        <None Remove="Resources\Images\Help\crop.jpg" />
+        <MauiImage Include="Resources\Images\Help\crop.jpg">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </MauiImage>
+        <None Remove="Resources\Images\Help\dim.jpg" />
+        <MauiImage Include="Resources\Images\Help\dim.jpg">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </MauiImage>
+        <None Remove="Resources\Images\Help\resize.jpg" />
+        <MauiImage Include="Resources\Images\Help\resize.jpg">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </MauiImage>
+        <None Remove="Resources\Images\Help\scale.jpg" />
+        <MauiImage Include="Resources\Images\Help\scale_min_to.jpg">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </MauiImage>
+        <None Remove="Resources\Images\Help\spotify.jpg" />
+        <MauiImage Include="Resources\Images\Help\spotify.jpg">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </MauiImage>
+        <None Remove="Resources\Images\Help\superimpose.jpg" />
+        <MauiImage Include="Resources\Images\Help\superimpose.jpg">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </MauiImage>
+        <None Remove="Resources\Images\Help\upscale.jpg" />
+        <MauiImage Include="Resources\Images\Help\scale_to_max.jpg">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </MauiImage>
     </ItemGroup>
 
     <ItemGroup>

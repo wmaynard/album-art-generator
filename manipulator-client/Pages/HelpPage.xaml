@@ -4,6 +4,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Maynard.ImageManipulator.Client.Pages.HelpPage">
     <ContentPage.Content>
-        
+        <ScrollView>
+            <Grid Padding="20"
+                  RowSpacing="20"
+                  ColumnSpacing="15"
+                  x:Name="HelpGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>  <!-- Adjust width to fit images -->
+                    <ColumnDefinition Width="*"/>    <!-- Expand text to fill space -->
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+            </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
