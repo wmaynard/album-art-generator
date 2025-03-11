@@ -59,6 +59,7 @@ public class FadeInVerticalStack : VerticalStackLayout
 
     public void Hide()
     {
+        IsVisible = false;
         foreach (IView child in Children)
         {
             if (child is not VisualElement element)
@@ -68,7 +69,11 @@ public class FadeInVerticalStack : VerticalStackLayout
         }
     }
 
-    public void Show() => BeginAnimation();
+    public void Show()
+    {
+        IsVisible = true;
+        BeginAnimation();
+    } 
 }
 
 public enum InitialFade

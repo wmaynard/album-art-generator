@@ -15,7 +15,8 @@ public class ComboBox : VerticalStackLayout, IPreferential
     private Grid Grid { get; set; }
     private FadeInVerticalStack NestedStack { get; set; }
     public EventHandler<ComboBoxUpdatedArgs> Updated { get; set; }
-    public List<ActionDefinition> Actions { get; set; } = new();
+    // public List<ActionDefinition> Actions { get; set; } = new();
+    public List<ActionDefinition> Actions => Children.OfType<ActionDefinition>().ToList();
     public ComboBox()
     {
         Spacing = 5;
@@ -32,7 +33,10 @@ public class ComboBox : VerticalStackLayout, IPreferential
                 new() { Width = new(8, GridUnitType.Star) },
             },
         };
-        NestedStack = new();
+        NestedStack = new()
+        {
+            IsVisible = false
+        };
 
         NestedStack.Add(new EmptySpace(10));
         
@@ -74,7 +78,6 @@ public class ComboBox : VerticalStackLayout, IPreferential
     {
         ActionDefinition definition = args.Control;
         await InsertChildAt(definition);
-        Actions.Add(definition);
         NestedStack.Hide();
         definition.ButtonClicked += DefinitionButtonClicked;
         definition.EffectUpdated += FireEventUpdated;
@@ -119,10 +122,7 @@ public class ComboBox : VerticalStackLayout, IPreferential
 
     private void FireEventUpdated(object sender = null, EventArgs e = null)
     {
-        Actions.Clear();
-        Actions.AddRange(Children.OfType<ActionDefinition>());
         Updated?.Invoke(sender ?? this, new(Actions.ToArray()));
-        Save();
     }
 
     private void OnClick_NewAction(object sender, EventArgs e)
@@ -139,7 +139,7 @@ public class ComboBox : VerticalStackLayout, IPreferential
     public void Save()
     {
         Preferences.Set(Id, ActionDefinition.Serialize(Actions.ToArray()));
-        Log.Verbose("Current transformation saved.");
+        Log.Info($"Current transformation saved ({Actions.Count}).");
     }
 
     public async void Load() => Load(null);
@@ -161,15 +161,19 @@ public class ComboBox : VerticalStackLayout, IPreferential
                 await InsertChildAt(actions[i], i);
             }
 
-            Actions = actions;
+            // Actions = actions;
 
             Log.Info($"Children that are actions: {Children.OfType<ActionDefinition>().Count()}");
+            Save();
+            Updated?.Invoke(this, new(Actions.ToArray()));
         });
     }
     public async void Load(string fromTransformation)
     {
         Log.Info("Call to Load()");
         string data = fromTransformation ?? Preferences.Get(Id, null);
+        
+        
         if (string.IsNullOrWhiteSpace(data))
         {
             Log.Info("No saved actions defined.");
@@ -186,7 +190,6 @@ public class ComboBox : VerticalStackLayout, IPreferential
             Log.Error($"Unable to load action definitions.  The saved data will be lost. ({e.Message})");
             Preferences.Set(Id, null);
         }
-        Updated?.Invoke(this, new(Actions.ToArray()));
     }
 }
 
