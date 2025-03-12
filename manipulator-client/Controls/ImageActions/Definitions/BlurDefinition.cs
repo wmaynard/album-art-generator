@@ -4,7 +4,7 @@ using Maynard.ImageManipulator.Client.Utilities;
 
 namespace Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions;
 
-public class BlurDefinition() : ActionDefinitionWithSlider("Blur", ActionDescriptions.BLUR, minimum: 1, maximum: 20)
+public class BlurDefinition() : ActionDefinitionWithSlider(ActionDescriptions.TITLE_BLUR, ActionDescriptions.BLUR, minimum: 1, maximum: 20)
 {
     public override string LoadingMessage => $"Blurring image with strength {Strength}...";
 

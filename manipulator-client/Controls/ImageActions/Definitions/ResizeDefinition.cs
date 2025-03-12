@@ -8,7 +8,7 @@ public class ResizeDefinition : ActionDefinition
     private LabeledNumericEntry WidthEntry { get; set; }
     private LabeledNumericEntry HeightEntry { get; set; }
     
-    public ResizeDefinition() : base("Resize", ActionDescriptions.RESIZE)
+    public ResizeDefinition() : base(ActionDescriptions.TITLE_RESIZE, ActionDescriptions.RESIZE)
     {
         WidthEntry = new("Width", minimum: 100, maximum: 1920);
         HeightEntry = new("Height", minimum: 100, maximum: 1920);

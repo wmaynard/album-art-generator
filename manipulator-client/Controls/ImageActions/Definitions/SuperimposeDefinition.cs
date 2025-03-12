@@ -4,7 +4,7 @@ using SixLabors.ImageSharp.PixelFormats;
 
 namespace Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions;
 
-public class SuperimposeDefinition() : ActionDefinition("Superimpose Original", ActionDescriptions.SUPERIMPOSE)
+public class SuperimposeDefinition() : ActionDefinition(ActionDescriptions.TITLE_SUPERIMPOSE, ActionDescriptions.SUPERIMPOSE)
 {
     public override string LoadingMessage => "Superimposing original image...";
     public override Picture Process(Picture image) => throw new NotImplementedException();
