@@ -25,8 +25,8 @@ public static class DimExtension
                 Span<Rgba32> pixels = image.GetRowSpan(row);
                 for (int col = 0; col < pixels.Length; col++)
                 {
-                    int x = Math.Abs(image.Width / 2 - row);
-                    int y = Math.Abs(image.Height / 2 - col);
+                    int x = Math.Abs(image.Width / 2 - col);
+                    int y = Math.Abs(image.Height / 2 - row);
                     double distance = Math.Sqrt(x * x + y * y);
                     
                     double dimPercentage = Math.Max(0, 1 - (strength / 100.0) * (distance / maxDistance));
