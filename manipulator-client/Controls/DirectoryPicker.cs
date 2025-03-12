@@ -51,7 +51,7 @@ public class DirectoryPicker : HorizontalStackLayout, IPreferential
     {
         try
         {
-            Log.Info("Opening directory...");
+            Log.Verbose("Opening directory...");
 
             await MainThread.InvokeOnMainThreadAsync(async () =>
             {
@@ -93,7 +93,7 @@ public class DirectoryPicker : HorizontalStackLayout, IPreferential
         #if MACCATALYST15_0_OR_GREATER
         TrySavePermissions();
         #endif
-        Log.Info($"Saving '{Id}': '{CurrentDirectory}...");
+        Log.Verbose($"Saving '{Id}': '{CurrentDirectory}...");
         Preferences.Set(Id, CurrentDirectory);
     }
 
@@ -170,7 +170,7 @@ public class DirectoryPicker : HorizontalStackLayout, IPreferential
     
     public void Load()
     {
-        Log.Info($"Loading '{Id}'...");
+        Log.Verbose($"Loading '{Id}'...");
         if (string.IsNullOrWhiteSpace(Id))
             return;
         string path = Preferences.Get(Id, CurrentDirectory);

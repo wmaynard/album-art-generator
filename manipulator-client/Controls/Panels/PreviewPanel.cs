@@ -100,7 +100,7 @@ public class PreviewPanel : Panel
                     await LoadingBar.ProgressTo(definition.LoadingMessage, steps + 1);
                 }
 
-                Log.Info("Finished updating image preview.");
+                Log.Verbose("Finished updating image preview.");
                 await LoadingBar.MarkComplete("Updated.");
             }, token);
         }

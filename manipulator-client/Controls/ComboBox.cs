@@ -61,7 +61,7 @@ public class ComboBox : VerticalStackLayout, IPreferential
     {
         if (Children.Contains(view))
         {
-            Log.Info("Removing child to be re-added");
+            Log.Verbose("Removing child to be re-added");
             Children.Remove(view);
         }
 
@@ -123,6 +123,7 @@ public class ComboBox : VerticalStackLayout, IPreferential
     private void FireEventUpdated(object sender = null, EventArgs e = null)
     {
         Updated?.Invoke(sender ?? this, new(Actions.ToArray()));
+        Save();
     }
 
     private void OnClick_NewAction(object sender, EventArgs e)
@@ -139,7 +140,7 @@ public class ComboBox : VerticalStackLayout, IPreferential
     public void Save()
     {
         Preferences.Set(Id, ActionDefinition.Serialize(Actions.ToArray()));
-        Log.Info($"Current transformation saved ({Actions.Count}).");
+        Log.Verbose($"Current transformation saved ({Actions.Count} actions).");
     }
 
     public async void Load() => Load(null);
@@ -155,7 +156,7 @@ public class ComboBox : VerticalStackLayout, IPreferential
             Log.Info($"Loading {actions.Count} actions");
             for (int i = 0; i < actions.Count; i++)
             {
-                Log.Info($"Loading action {i + 1} of {actions.Count}");
+                Log.Verbose($"Loading action {i + 1} of {actions.Count}");
                 actions[i].ButtonClicked += DefinitionButtonClicked;
                 actions[i].EffectUpdated += FireEventUpdated;
                 await InsertChildAt(actions[i], i);
@@ -163,14 +164,14 @@ public class ComboBox : VerticalStackLayout, IPreferential
 
             // Actions = actions;
 
-            Log.Info($"Children that are actions: {Children.OfType<ActionDefinition>().Count()}");
+            Log.Verbose($"Children that are actions: {Children.OfType<ActionDefinition>().Count()}");
             Save();
             Updated?.Invoke(this, new(Actions.ToArray()));
         });
     }
     public async void Load(string fromTransformation)
     {
-        Log.Info("Call to Load()");
+        Log.Verbose("Call to Load()");
         string data = fromTransformation ?? Preferences.Get(Id, null);
         
         

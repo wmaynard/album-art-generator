@@ -4,6 +4,15 @@ namespace Maynard.ImageManipulator.Client.Controls;
 
 public class SliderWithLabels : VerticalStackLayout
 {
+    public string Title
+    {
+        get => TitleLabel.Text;
+        set
+        {
+            TitleLabel.Text = value;
+            TitleLabel.IsVisible = !string.IsNullOrEmpty(value);
+        }
+    }
     public double Minimum
     {
         get => Slider.Minimum;
@@ -57,6 +66,7 @@ public class SliderWithLabels : VerticalStackLayout
     private Label MinimumLabel { get; set; }
     private Label MaximumLabel { get; set; }
     private Label CurrentLabel { get; set; }
+    private Label TitleLabel { get; set; }
     public EventHandler<ValueChangedEventArgs> ValueChanged;
     
     public SliderWithLabels()
@@ -73,6 +83,7 @@ public class SliderWithLabels : VerticalStackLayout
         MinimumLabel = new() { Text = "0" };
         CurrentLabel = new() { Text = "0", HorizontalTextAlignment = TextAlignment.Center, TextColor = WdmColors.LIME };
         MaximumLabel = new() { Text = "100", HorizontalTextAlignment = TextAlignment.End };
+        TitleLabel = new() { Text = "" };
         
         Slider = new()
         {
@@ -85,6 +96,7 @@ public class SliderWithLabels : VerticalStackLayout
         };
         Slider.ValueChanged += OnValueChanged;
 
+        Add(TitleLabel);
         Grid.Add(MinimumLabel, column: 0, row: 0);
         Grid.Add(CurrentLabel, column: 1, row: 0);
         Grid.Add(MaximumLabel, column: 2, row: 0);

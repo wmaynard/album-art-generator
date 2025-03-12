@@ -40,13 +40,13 @@ public class Terminal : ContentView
             switch (log.Severity)
             {
                 case Log.Severity.Warn:
-                    await TemporarilyChangeColor(WdmColors.YELLOW, seconds: 10);
+                    await TemporarilyChangeColor(WdmColors.YELLOW, seconds: 5);
                     break;
                 case Log.Severity.Error:
-                    await TemporarilyChangeColor(WdmColors.RED, seconds: 30);
+                    await TemporarilyChangeColor(WdmColors.RED, seconds: 20);
                     break;
                 case Log.Severity.Critical:
-                    await TemporarilyChangeColor(WdmColors.RED, WdmColors.BLACK, seconds: 60);
+                    await TemporarilyChangeColor(WdmColors.RED, WdmColors.BLACK, seconds: 20);
                     break;
                 case Log.Severity.Verbose:
                     return;
@@ -90,7 +90,7 @@ public class Terminal : ContentView
         }
         catch (TaskCanceledException)
         {
-            Log.Info("Console color changed again before time ran out; refreshing delay on color change.");
+            Log.Verbose("Console color changed again before time ran out; refreshing delay on color change.");
         }
     }
 }

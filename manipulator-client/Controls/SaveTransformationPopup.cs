@@ -37,7 +37,7 @@ public class SaveTransformationPopup : Popup
             : Entry.Text;
         if (string.IsNullOrWhiteSpace(description))
         {
-            Log.Info("Unable to save current transformation; the popup was canceled or an empty value entered.");
+            Log.Warn("Unable to save current transformation; the popup was canceled or an empty value entered.");
             return;
         }
         TransformationPersistenceManager.Save(description);
