@@ -15,17 +15,17 @@
         <!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
 
         <OutputType>Exe</OutputType>
-        <RootNamespace>Maynard.ImageManipulator.Client</RootNamespace>
+        <RootNamespace>Maynard.AlbumArtgenerator.Client</RootNamespace>
         <UseMaui>true</UseMaui>
         <SingleProject>true</SingleProject>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>disable</Nullable>
 
         <!-- Display name -->
-        <ApplicationTitle>manipulator-client</ApplicationTitle>
+        <ApplicationTitle>Album Art Generator</ApplicationTitle>
 
         <!-- App Identifier -->
-        <ApplicationId>com.maynard.imagemanipulator</ApplicationId>
+        <ApplicationId>com.maynard.album-art-generator</ApplicationId>
 
         <!-- Versions -->
         <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -40,6 +40,15 @@
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
         <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+        <Title>Album Art Generator</Title>
+        <Authors>Will Maynard</Authors>
+        <Description>An application for turning portrait or landscape images into square album art for Plex / other media players.</Description>
+        <Copyright>2025 Will Maynard</Copyright>
+        <PackageProjectUrl>https://github.com/wmaynard/album-art-generator</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/wmaynard/album-art-generator/blob/main/LICENSE</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/wmaynard/album-art-generator</RepositoryUrl>
+        <Company>Will Maynard</Company>
+        <Product>Album Art Generator</Product>
     </PropertyGroup>
 
     <ItemGroup>

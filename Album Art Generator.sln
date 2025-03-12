@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "manipulator-client", "manipulator-client\manipulator-client.csproj", "{569500DC-AAC4-4F9A-B484-0AD892096462}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "album-art-generator", "album-art-generator\album-art-generator.csproj", "{569500DC-AAC4-4F9A-B484-0AD892096462}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
