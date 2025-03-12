@@ -18,9 +18,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8c68a337-0f70-42bb-9ad7-b50a934c0b58" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Batch Image Manipulator/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Batch Image Manipulator/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manipulator-client/Controls/ComboBox.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Controls/ComboBox.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manipulator-client/Pages/LoadPage.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Pages/LoadPage.xaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manipulator-client/Pages/TransformationPage.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Pages/TransformationPage.xaml.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,14 +28,14 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/.dotnet/packs/Microsoft.Android.Sdk.Darwin/35.0.39/tools/Xamarin.Android.Tooling.targets" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/.dotnet/packs/Microsoft.MacCatalyst.Sdk.net9.0_18.2/18.2.9180/tools/msbuild/Xamarin.Shared.targets" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/manipulator-client/Resources/Fonts/FluentUI.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/manipulator-client/Samples/Mandrill.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d5eed587a35f44b294508e8aad361b32498928/a0/b02c308a/SpanHelpers.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/25bb89ff12454acec3811a5336cb6a651e47cf902539e8d4761905fb3ec31/ImageExtensions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/271b8d2d9d94e13a469269f46758864f64ad438c3174f74d4a591af6410e96b/Future.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/36728276f701d8229cd8938eabd5c32f54caece8483096de38617a59bc9352/Delegates.generated.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/45c2556881752cc6eff43a67ef91359146b5a1243c2fe7db445d43f3bd13/ContentView.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/4ec5ac1f1215ce2e9145ebf862faaad6376c59dacb6b776f4cc3fbff59e943/Layout.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/98f0ece83ba33754ab932bd7b5c712d12f3a59029f9f14067f553a3a318c8f/Image{TPixel}.cs" root0="SKIP_HIGHLIGHTING" />
@@ -58,28 +55,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "deletionFromPopupRequiresConfirmation": "false",
-    "do_not_show_Android_plugin_suggestion": "true",
-    "do_not_show_xcode_notification_for_xib": "true",
-    "git-widget-placeholder": "main",
-    "iOS.Mac Client.executor": "Debug",
-    "macOS.Mac Client.executor": "Debug",
-    "macOS.gui.executor": "Debug",
-    "macOS.mac-client.executor": "Debug",
-    "macOS.macOS.executor": "Debug",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settings.ide.settings.notifications",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;do_not_show_Android_plugin_suggestion&quot;: &quot;true&quot;,
+    &quot;do_not_show_xcode_notification_for_xib&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;merge-projects&quot;,
+    &quot;iOS.Mac Client.executor&quot;: &quot;Debug&quot;,
+    &quot;macOS.Mac Client.executor&quot;: &quot;Debug&quot;,
+    &quot;macOS.gui.executor&quot;: &quot;Debug&quot;,
+    &quot;macOS.mac-client.executor&quot;: &quot;Debug&quot;,
+    &quot;macOS.macOS.executor&quot;: &quot;Debug&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.notifications&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="macOS.macOS">
     <configuration name="Windows" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/manipulator-client/manipulator-client.csproj" />
@@ -102,7 +99,7 @@
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/manipulator-client/bin/Debug/net9.0-maccatalyst/maccatalyst-arm64" />
       <option name="PASS_PARENT_ENVS_MAC" value="1" />
       <method v="2">
-        <option name="Build" />
+        <option name="Build Solution" enabled="true" />
       </method>
     </configuration>
     <list>
@@ -119,7 +116,9 @@
       <option name="presentableId" value="Default" />
       <updated>1740863318617</updated>
       <workItem from="1740863321120" duration="570000" />
-      <workItem from="1740863899167" duration="104356000" />
+      <workItem from="1740863899167" duration="123209000" />
+      <workItem from="1741351662818" duration="42637000" />
+      <workItem from="1741721371904" duration="19297000" />
     </task>
     <servers />
   </component>
@@ -131,11 +130,26 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/manipulator-client/Controls/Panels/PreviewPanel.cs</url>
+          <line>113</line>
+          <properties documentPath="$PROJECT_DIR$/manipulator-client/Controls/Panels/PreviewPanel.cs" containingFunctionPresentation="Method 'UpdatePreview'">
+            <startOffsets>
+              <option value="4365" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4434" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="185" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="XamarinMacProject">
-        <watch expression="Id" language="C#" />
-        <watch expression="e.Element.IsVisible" language="C#" />
-        <watch expression="e.Element.Opacity" language="C#" />
+        <watch expression="Actions" language="C#" />
       </configuration>
     </watches-manager>
   </component>
