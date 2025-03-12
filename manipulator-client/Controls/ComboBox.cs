@@ -174,7 +174,6 @@ public class ComboBox : VerticalStackLayout, IPreferential
         Log.Verbose("Call to Load()");
         string data = fromTransformation ?? Preferences.Get(Id, null);
         
-        
         if (string.IsNullOrWhiteSpace(data))
         {
             Log.Info("No saved actions defined.");

@@ -1,6 +1,9 @@
 using SixLabors.ImageSharp.PixelFormats;
 
-namespace Maynard.Imaging.Models;
+// TODO: This is unused, and was the precursor to the AveragingWindow class.
+// It's probably worth deleting this at this point, but at the time I had thoughts of using this to create effects
+// other than blurs, like starbursts / lens flares.
+namespace Maynard.ImageManipulator.Client.Utilities;
 
 public class NeighboringPixels
 {

@@ -18,6 +18,8 @@
   <component name="ChangeListManager">
     <list default="true" id="8c68a337-0f70-42bb-9ad7-b50a934c0b58" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Batch Image Manipulator/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Batch Image Manipulator/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Controls/ComboBox.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Controls/ComboBox.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manipulator-client/Controls/LoadingBar.cs" beforeDir="false" afterPath="$PROJECT_DIR$/manipulator-client/Controls/LoadingBar.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +34,7 @@
     <setting file="file://$USER_HOME$/.dotnet/packs/Microsoft.MacCatalyst.Sdk.net9.0_18.2/18.2.9180/tools/msbuild/Xamarin.Shared.targets" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/manipulator-client/Resources/Fonts/FluentUI.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/manipulator-client/Samples/Mandrill.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d5eed587a35f44b294508e8aad361b32498928/1e/82d169df/EventHandler`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d5eed587a35f44b294508e8aad361b32498928/a0/b02c308a/SpanHelpers.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/25bb89ff12454acec3811a5336cb6a651e47cf902539e8d4761905fb3ec31/ImageExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/271b8d2d9d94e13a469269f46758864f64ad438c3174f74d4a591af6410e96b/Future.cs" root0="FORCE_HIGHLIGHTING" />
@@ -99,6 +102,7 @@
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/manipulator-client/bin/Debug/net9.0-maccatalyst/maccatalyst-arm64" />
       <option name="PASS_PARENT_ENVS_MAC" value="1" />
       <method v="2">
+        <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_Clean Image Script" />
         <option name="Build Solution" enabled="true" />
       </method>
     </configuration>
@@ -118,7 +122,7 @@
       <workItem from="1740863321120" duration="570000" />
       <workItem from="1740863899167" duration="123209000" />
       <workItem from="1741351662818" duration="42637000" />
-      <workItem from="1741721371904" duration="19297000" />
+      <workItem from="1741721371904" duration="20448000" />
     </task>
     <servers />
   </component>
@@ -144,6 +148,19 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="185" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/manipulator-client/Controls/ComboBox.cs</url>
+          <line>189</line>
+          <properties documentPath="$PROJECT_DIR$/manipulator-client/Controls/ComboBox.cs" containingFunctionPresentation="Method 'Load'">
+            <startOffsets>
+              <option value="6454" />
+            </startOffsets>
+            <endOffsets>
+              <option value="6547" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="203" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -18,8 +18,6 @@ public class LoadingBar : HorizontalStackLayout
     }
     private long TotalPoints { get; set; }
 
-    public float Percentage => 0; // TODO
-
     public LoadingBar()
     {
         Stack = new()

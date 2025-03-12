@@ -1,0 +1,1 @@
+xattr -rc /Users/wmaynard/Dev/batch-image-manipulator/
