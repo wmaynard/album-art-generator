@@ -8,7 +8,7 @@
         <Grid RowDefinitions="*">
             <Grid Grid.Row="0" ColumnDefinitions="7*,3*">
                 <panels:SavedTransformationPanel Grid.Column="0" Title="My Transformations" Columns="2" Loaded="VisualElement_OnLoaded"/>
-                <panels:SavedTransformationPanel Grid.Column="1" Title="Examples" Columns="1"/>
+                <panels:SavedTransformationPanel Grid.Column="1" Title="Examples" Columns="1" UseBuiltIns="True" Loaded="VisualElement_OnLoaded"/>
             </Grid>
         </Grid>    
     </ContentPage.Content>

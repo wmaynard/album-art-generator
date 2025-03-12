@@ -41,6 +41,8 @@ public class SavedTransformation : Panel
         Stack.Add(grid);
     }
 
+    public void HideDeleteButton() => DeleteButton.IsVisible = false;
+
     private async void DeleteButtonClicked(object sender, EventArgs e)
     {
         Grid parent = (Grid)Parent;

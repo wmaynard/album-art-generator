@@ -14,7 +14,7 @@ public static class ActionDescriptions
     
     public static readonly string HELP_BLUR = $"{TITLE_BLUR}{Environment.NewLine}{Environment.NewLine}{BLUR}{Environment.NewLine}";
     public static readonly string HELP_CROP_TO_SQUARE = $"{TITLE_CROP_TO_SQUARE}{Environment.NewLine}{Environment.NewLine}{CROP_TO_SQUARE}";
-    public static readonly string HELP_VIGNETTE = $"{TITLE_VIGNETTE}{Environment.NewLine}{Environment.NewLine}{VIGNETTE}{Environment.NewLine}The effect strength is proportional to image size, not directly tied to the image resolution.";
+    public static readonly string HELP_VIGNETTE = $"{TITLE_VIGNETTE}{Environment.NewLine}{Environment.NewLine}{VIGNETTE}{Environment.NewLine}The effect strength is proportional to image size, not directly tied to the image resolution.{Environment.NewLine}For a white version, use the {TITLE_WHITE_VIGNETTE} effect.";
     public static readonly string HELP_WHITE_VIGNETTE = $"{TITLE_WHITE_VIGNETTE}{Environment.NewLine}{Environment.NewLine}{WHITE_VIGNETTE}{Environment.NewLine}The effect strength is proportional to image size, not directly tied to the image resolution.";
     public static readonly string HELP_RESIZE = $"{TITLE_RESIZE}{Environment.NewLine}{Environment.NewLine}{RESIZE}{Environment.NewLine}This is useful if you want to make sure all of your images in a batch have the same dimensions when processed.";
     public static readonly string HELP_SCALE_MIN_TO = $"{TITLE_SCALE_MIN_TO}{Environment.NewLine}{Environment.NewLine}{SCALE_MIN_TO}{Environment.NewLine}This is useful early on if you want to ensure all of your images have the same baseline minimum dimension for later processing.";

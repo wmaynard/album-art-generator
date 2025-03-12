@@ -38,15 +38,6 @@ public class SavedTransformationPanel : Panel
 
     public SavedTransformationPanel()
     {
-        // string data =
-        //     "foobar\uf8ffMaynard.ImageManipulator.Client.Controls.ImageActions.Definitions.BlurDefinition\u231810\u2318\u2325Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions.CropToSquareDefinition\u2318\u2325Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions.RadialDimDefinition\u23181\u2318";
-        //
-        // for (int i = 0; i < 100; i++)
-        //     if (Preferences.ContainsKey($"CustomTransformation1{i:00}"))
-        //         Preferences.Remove($"CustomTransformation1{i:00}");
-        // for (int i = 0; i < 9; i++)
-        //     Preferences.Set($"CustomTransformation10{i}", data.Replace("foobar", $"Xform {i}"));
-        
         Grid = new()
         {
             ColumnDefinitions = new()
@@ -66,6 +57,10 @@ public class SavedTransformationPanel : Panel
             .Select(data => new SavedTransformation(data))
             .ToArray();
         
+        if (UseBuiltIns)
+            foreach (SavedTransformation transformation in transformations)
+                transformation.HideDeleteButton();
+        
         Grid.Children.Clear();
         
         int rows = (int)Math.Ceiling(transformations.Length / (float)Columns);
@@ -84,18 +79,10 @@ public class SavedTransformationPanel : Panel
     private static void OnColumnSpanChanged(BindableObject bindable, object oldValue, object newValue)
     {
         return;
-        if (bindable is not SavedTransformationPanel panel)
-            return;
-        int columns = (int)newValue;
-        panel.Grid.ColumnDefinitions.Clear();
-        for (int i = 0; i < columns; i++)
-            panel.Grid.ColumnDefinitions.Add(new() { Width = new(1, GridUnitType.Star) });
     }
     
     private static void OnBuiltInsChanged(BindableObject bindable, object oldValue, object newValue)
     {
         return;
-        if (bindable is not SavedTransformationPanel panel)
-            return;
     }
 }

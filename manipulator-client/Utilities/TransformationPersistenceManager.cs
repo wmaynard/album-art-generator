@@ -12,6 +12,7 @@ public static partial class TransformationPersistenceManager
     private const int BUILT_IN_START = 1;
     public const int CUSTOM_START = 100;
     private const char SEPARATOR = '\uf8ff';
+    private static readonly bool INITIALIZED = EnsureSamplesExist();
 
     private static string GenerateKey(int index) => $"{PREFIX}{index}";
     private static int GetNextKey()
@@ -106,6 +107,15 @@ public static partial class TransformationPersistenceManager
  
     [GeneratedRegex(@"\d+$")]
     private static partial Regex IntegerRegex();
+
+    private static bool EnsureSamplesExist()
+    {
+        int index = BUILT_IN_START;
+        
+        Preferences.Set(GenerateKey(index++), SampleTransformations.BLURRED_MESH);
+        Preferences.Set(GenerateKey(index++), SampleTransformations.SCREEN_DOOR);
+        return true;
+    }
 }
 
 
