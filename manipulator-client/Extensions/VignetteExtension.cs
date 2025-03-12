@@ -3,7 +3,7 @@ using SixLabors.ImageSharp.PixelFormats;
 
 namespace Maynard.ImageManipulator.Client.Extensions;
 
-public static class DimExtension
+public static class VignetteExtension
 {
     /// <summary>
     /// Adds a radial dim to an image, strongest on the outside.
@@ -12,7 +12,7 @@ public static class DimExtension
     /// <param name="strength">The percentage of darkening you want to occur, values 0-200.  At a value of 200,
     /// the entire image will be black.</param>
     /// <returns>The dimmed image for chaining.</returns>
-    public static Image<Rgba32> Dim(this Image<Rgba32> self, int strength)
+    public static Image<Rgba32> Vignette(this Image<Rgba32> self, int strength)
     {
         int maxX = self.Width / 2;
         int maxY = self.Height / 2;
@@ -52,8 +52,8 @@ public static class DimExtension
     /// <param name="self">The original image.</param>
     /// <param name="strength">The percentage of darkening you want to occur, values 0-200.  At a value of 200,
     /// the entire image will be black.</param>
-    /// <param name="dimmed">The dimmed copy of the image.</param>
+    /// <param name="vignetted">The dimmed copy of the image.</param>
     /// <returns>The dimmed copy of the image for chaining.</returns>
-    public static Image<Rgba32> Dim(this Image<Rgba32> self, int strength, out Image<Rgba32> dimmed)
-        => dimmed = self.Clone().Dim(strength);
+    public static Image<Rgba32> Vignette(this Image<Rgba32> self, int strength, out Image<Rgba32> vignetted)
+        => vignetted = self.Clone().Vignette(strength);
 }

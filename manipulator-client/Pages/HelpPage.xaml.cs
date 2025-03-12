@@ -18,7 +18,7 @@ public partial class HelpPage : ContentPage
         {
             { "blur.jpg", ActionDescriptions.HELP_BLUR },
             { "crop.jpg", ActionDescriptions.HELP_CROP_TO_SQUARE },
-            { "dim.jpg", ActionDescriptions.HELP_DIM },
+            { "vignette.jpg", ActionDescriptions.HELP_VIGNETTE },
             { "resize.jpg", ActionDescriptions.HELP_RESIZE },
             { "scale_min_to.jpg", ActionDescriptions.HELP_SCALE_MIN_TO },
             { "scale_to_max.jpg", ActionDescriptions.HELP_SCALE_TO_MAX_DIMENSION },

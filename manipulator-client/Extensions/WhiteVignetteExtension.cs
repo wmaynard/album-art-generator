@@ -3,7 +3,7 @@ using SixLabors.ImageSharp.PixelFormats;
 
 namespace Maynard.ImageManipulator.Client.Extensions;
 
-public static class DodgeExtension
+public static class WhiteVignetteExtension
 {
     /// <summary>
     /// Adds a radial dodge to an image, strongest on the outside.
@@ -11,8 +11,8 @@ public static class DodgeExtension
     /// <param name="self">The original image.</param>
     /// <param name="strength">The percentage of lightening you want to occur, values 0-200.  At a value of 200,
     /// the entire image will be black.</param>
-    /// <returns>The dodged image for chaining.</returns>
-    public static Image<Rgba32> Dodge(this Image<Rgba32> self, int strength)
+    /// <returns>The vignetted image for chaining.</returns>
+    public static Image<Rgba32> WhiteVignette(this Image<Rgba32> self, int strength)
     {
         int maxX = self.Width / 2;
         int maxY = self.Height / 2;
@@ -48,13 +48,13 @@ public static class DodgeExtension
     }
 
     /// <summary>
-    /// Copies an image, then adds a radial dim to an image, strongest on the outside.
+    /// Copies an image, then adds a white vignette to an image.
     /// </summary>
     /// <param name="self">The original image.</param>
-    /// <param name="strength">The percentage of darkening you want to occur, values 0-200.  At a value of 200,
+    /// <param name="strength">The percentage of lightening you want to occur, values 0-200.  At a value of 200,
     /// the entire image will be black.</param>
-    /// <param name="dimmed">The dodged copy of the image.</param>
-    /// <returns>The dodged copy of the image for chaining.</returns>
-    public static Image<Rgba32> Dim(this Image<Rgba32> self, int strength, out Image<Rgba32> dimmed)
-        => dimmed = self.Clone().Dodge(strength);
+    /// <param name="dimmed">The vignetted copy of the image.</param>
+    /// <returns>The vignetted copy of the image for chaining.</returns>
+    public static Image<Rgba32> WhiteVignette(this Image<Rgba32> self, int strength, out Image<Rgba32> dimmed)
+        => dimmed = self.Clone().WhiteVignette(strength);
 }

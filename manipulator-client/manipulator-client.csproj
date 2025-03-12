@@ -67,7 +67,7 @@
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </MauiImage>
         <None Remove="Resources\Images\Help\dim.jpg" />
-        <MauiImage Include="Resources\Images\Help\dim.jpg">
+        <MauiImage Include="Resources\Images\Help\vignette.jpg">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </MauiImage>
         <None Remove="Resources\Images\Help\resize.jpg" />
