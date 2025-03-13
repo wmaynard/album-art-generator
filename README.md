@@ -8,7 +8,7 @@ I'm primarily a backend engineer.  I've spent the vast majority of my career des
 
 I have a large collection of video game music, and I run a Plex server to organize all of it.  I also spent a significant amount of time tagging my music collection with box art for album images; this way, when I'm picking game music, it feels like I'm pulling an old friend off my shelf.  Unfortunately, Plex doesn't support album art well if it's not square - the artwork will be cropped to the center, cutting off any detail on the sides.
 
-![Plex Screenshot](Docs/01-plex.png)
+![Plex Screenshot](album-art-generator/Docs/01-plex.png)
 
 One possible fix is to edit all of my images and put a plain or transparent square background behind all of them.  I wasn't entirely satisfied with this, though, since that results in a bland image.  I wanted my background to, in a way, extend the artwork.  If I didn't want to spend hundreds of hours manually editing images, I'd have to script my transformations.
 
@@ -24,9 +24,9 @@ Once I had a blur working, I started playing around with other effects.
 
 | Unprocessed                                                             | Processed                                                                                     |
 |-------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
-| ![Shining in the Darkness Box Art](Docs/02-shining-in-the-darkness.jpg) | ![Shining in the Darkness Box Art (Processed)](Docs/02-shining-in-the-darkness-processed.jpg) |
-| ![Bomberman Hero Box Art](Docs/03-bomberman-hero.jpg)                   | ![Bomberman Hero Box Art (Processed)](Docs/03-bomberman-hero-processed.jpg)                   |
-| ![Crystalis Box Art.png](Docs/04-crystalis.png)                         | ![Crystalis Box Art (Processed).png](Docs/04-crystalis-processed.jpg)                         |
+| ![Shining in the Darkness Box Art](album-art-generator/Docs/02-shining-in-the-darkness.jpg) | ![Shining in the Darkness Box Art (Processed)](album-art-generator/Docs/02-shining-in-the-darkness-processed.jpg) |
+| ![Bomberman Hero Box Art](album-art-generator/Docs/03-bomberman-hero.jpg)                   | ![Bomberman Hero Box Art (Processed)](album-art-generator/Docs/03-bomberman-hero-processed.jpg)                   |
+| ![Crystalis Box Art.png](album-art-generator/Docs/04-crystalis.png)                         | ![Crystalis Box Art (Processed).png](album-art-generator/Docs/04-crystalis-processed.jpg)                         |
 
 These processed images are the result of multiple transformations happening to the original image:
 
@@ -43,7 +43,7 @@ Most of my effects here are configurable.  In its original CLI form, it wasn't e
 
 It's nothing too special.  More focused on function than a great UX, there are three pages in total.  The **Transformation Page** is the meat of the application, responsible for configuring and processing images.
 
-![Transformation Page](Docs/10-transformation-page.png)
+![Transformation Page](album-art-generator/Docs/10-transformation-page.png)
 
 Sliders, numeric input boxes, and directory pickers allow a user to set up their transformation while seeing a preview update in not-so-real-time.  I'm not recreating Adobe's image processing performance... yet.
 
@@ -53,7 +53,7 @@ The **Transformation Page** also has a log output for debugging.  On release bui
 
 The **Open Page** is a very simple view of any saved user-generated transformations.  A few sample transformations are provided.
 
-![Open Page](Docs/11-open-page.png)
+![Open Page](album-art-generator/Docs/11-open-page.png)
 
 Each saved transformation describes each step of the transformation, although it's not particularly user-friendly since it uses method names and unnamed parameters from the code as opposed to UI strings.
 
@@ -61,7 +61,7 @@ Each saved transformation describes each step of the transformation, although it
 
 Finally, the **Help Page** shows a visual example of what each transformation step will do to an image.
 
-![Help Page](Docs/12-help-page.png)
+![Help Page](album-art-generator/Docs/12-help-page.png)
 
 These are the same descriptions as those used when picking the individual action, but slightly extended.  Paired with screenshots of the effect it's hopefully a little more intuitive to understand.
 
