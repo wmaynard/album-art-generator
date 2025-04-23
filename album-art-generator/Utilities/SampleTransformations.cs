@@ -20,4 +20,15 @@ public class SampleTransformations
         "Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions.CropToSquareDefinition\u2318\u2325" +
         "Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions.ResizeDefinition\u2318512\u2318512\u2318\u2325" +
         "Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions.SpotifyDefinition\u231816\u231870\u2318";
+
+    public const string PLEX_VIGNETTE =
+        "Plex Vignette\uf8ff" +
+        "Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions.ScaleToMaxDefinition\u2318\u2325" +
+        "Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions.CropToSquareDefinition\u2318\u2325" +
+        "Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions.ResizeDefinition\u2318512\u2318512\u2318\u2325" +
+        "Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions.BlurDefinition\u23187\u2318\u2325" +
+        "Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions.SpotifyDefinition\u231816\u2318120\u2318\u2325" +
+        "Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions.BlurDefinition\u23185\u2318\u2325" +
+        "Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions.WhiteVignetteDefinition\u231830\u2318\u2325" +
+        "Maynard.ImageManipulator.Client.Controls.ImageActions.Definitions.SuperimposeDefinition\u2318";
 }

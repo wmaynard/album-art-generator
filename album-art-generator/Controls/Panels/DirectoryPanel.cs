@@ -148,6 +148,7 @@ public class DirectoryPanel : Panel, IPreferential
             : throw new TimeoutException($"Operation timed out: {message}.  Time allowed: {seconds}s");
     }
 
+    private const string OUTPUT_PREFIX = "albumart-";
     private CancellationTokenSource _processingCts = new();
     private async void RunTransformationButtonOnClicked(object sender, EventArgs e)
     {
@@ -159,7 +160,7 @@ public class DirectoryPanel : Panel, IPreferential
         await ProgressBar.ProgressTo("Scanning for files...", points: 1);
         List<FileInfo> files = (await ScanDirectories(CurrentDirectory, token))
             .Select(path => new FileInfo(path))
-            .Where(info => !info.Name.StartsWith("processed-"))
+            .Where(info => !info.Name.StartsWith(OUTPUT_PREFIX))
             .ToList();
         long totalBytes = files.Sum(info => info.Length);
         await ProgressBar.ProgressTo("Preparing tasks...", points: 2);
@@ -179,7 +180,7 @@ public class DirectoryPanel : Panel, IPreferential
                     (
                         function: () => Picture.Load<Rgba32>(info.FullName), 
                         message: "Loading image",
-                        seconds: 300
+                        seconds: 600
                     );
 
                     foreach (Func<Picture, string, Picture> func in delegates)
@@ -187,11 +188,11 @@ public class DirectoryPanel : Panel, IPreferential
                         (
                             function: () => func(picture, info.FullName), 
                             message: "Processing step of an image",
-                            seconds: 300
+                            seconds: 600
                         );
 
                     string directory = OutputDirectory ?? info.Directory.FullName;
-                    string path = Path.Combine(directory, $"processed-{Path.GetFileNameWithoutExtension(info.Name)}.jpg");
+                    string path = Path.Combine(directory, $"{OUTPUT_PREFIX}{Path.GetFileNameWithoutExtension(info.Name)}.jpg");
                     
                     await RunWithTimeout
                     (
@@ -202,7 +203,7 @@ public class DirectoryPanel : Panel, IPreferential
                             await picture.SaveAsync(path, encoder, token);
                         },
                         message: "Saving processed image", 
-                        seconds: 30
+                        seconds: 60
                     );
                 }
                 catch (Exception exception)

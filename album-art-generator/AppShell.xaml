@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:Maynard.ImageManipulator.Client"
     xmlns:pages="clr-namespace:Maynard.ImageManipulator.Client.Pages"
     Shell.FlyoutBehavior="Flyout"
-    Title="manipulator_client">
+    Title="Album Art Generator">
     
     <ShellContent
         Title="Transformations"

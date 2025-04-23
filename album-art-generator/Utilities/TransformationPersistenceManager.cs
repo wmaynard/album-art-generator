@@ -114,8 +114,7 @@ public static partial class TransformationPersistenceManager
         
         Preferences.Set(GenerateKey(index++), SampleTransformations.BLURRED_MESH);
         Preferences.Set(GenerateKey(index++), SampleTransformations.SCREEN_DOOR);
+        Preferences.Set(GenerateKey(index++), SampleTransformations.PLEX_VIGNETTE);
         return true;
     }
 }
-
-
